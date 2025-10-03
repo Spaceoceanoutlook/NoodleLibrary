@@ -2,9 +2,9 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: myapp
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: noodlesdb
+      POSTGRES_USER: valerii
+      POSTGRES_PASSWORD: 456321
     ports:
       - "5432:5432"
     volumes:
