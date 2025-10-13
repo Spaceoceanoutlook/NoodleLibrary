@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Добавить новую лапшу</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+                line-height: 1.6;
+            }
+            h1 {
+                color: #333;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .form-group {
+                margin-bottom: 20px;
+            }
+            label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+            input[type="text"],
+            input[type="number"],
+            input[type="file"],
+            textarea,
+            select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-sizing: border-box;
+                font-size: 16px;
+            }
+            textarea {
+                height: 120px;
+                resize: vertical;
+            }
+            .multi-select {
+                height: 150px;
+            }
+            button {
+                background-color: #4caf50;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+                width: 100%;
+                transition: background-color 0.3s;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+            .required:after {
+                content: " *";
+                color: red;
+            }
+            .file-upload {
+                margin-top: 10px;
+            }
+            .form-note {
+                font-size: 14px;
+                color: #666;
+                margin-top: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Добавить новую лапшу</h1>
+        <form action="/create" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title"">Название лапши</label>
+                <input type="text" id="title" name="title" required />
+            </div>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <textarea id="description" name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="image">Название постера</label>
+                <input type="text" id="image" name="image" required />
+            </div>
+            <div class="form-group">
+                <label for="manufacture">Изготовитель</label>
+                <select id="manufacture" name="manufacture">
+                    {% for manufacture in manufacture_list %}
+                    <option value="{{ manufacture.id }}">{{ manufacture.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Страна</label>
+                <select
+                    id="country"
+                    name="country"
+                >
+                    {% for country in country_list %}
+                    <option value="{{ country.id }}">{{ country.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="checkbox" id="recommendation" name="recommendation" value="true"><label for="recommendation">Рекомендовать</label>
+            <div class="form-group">
+                <label for="code">Код</label>
+                <input type="text" id="code" name="code" required />
+            </div>
+            <div class="form-group">
+                <button type="submit">Добавить лапшу</button>
+            </div>
+        </form>
+    </body>
+</html>
