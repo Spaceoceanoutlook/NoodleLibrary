@@ -1,11 +1,7 @@
-from fastapi import (
-    APIRouter,
-    Depends,
-    Request,
-)
-from fastapi.responses import HTMLResponse
+from fastapi import APIRouter, Depends, Form, HTTPException, Request
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy import select
+from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from noodlelibrary.database import get_db
@@ -33,7 +29,7 @@ async def read_noodles(
     request: Request,
     db: AsyncSession = Depends(get_db),
 ):
-    stmt = select(Noodle)
+    stmt = select(Noodle).order_by(desc(Noodle.id))
     result = await db.execute(stmt)
     noodles = result.scalars().all()
     noodles_for_template = [NoodleBase.model_validate(noodle) for noodle in noodles]
@@ -49,8 +45,8 @@ async def read_noodles(
     )
 
 
-@router.get("/create", response_class=HTMLResponse, summary="Create Noodle")
-async def create_noodle(
+@router.get("/create", response_class=HTMLResponse, summary="Show Create Noodle Form")
+async def create_noodle_form(
     request: Request,
     db: AsyncSession = Depends(get_db),
 ):
@@ -70,3 +66,34 @@ async def create_noodle(
             "country_list": country_list,
         },
     )
+
+
+@router.post("/create", summary="Create Noodle")
+async def create_noodle_post(
+    request: Request,
+    title: str = Form(...),
+    description: str = Form(""),
+    image: str = Form(...),
+    manufacture_id: int = Form(...),
+    country_id: int = Form(...),
+    code: str = Form(...),
+    recommendation: str = Form("false"),
+    db: AsyncSession = Depends(get_db),
+):
+    is_recommended = recommendation == "true"
+    if code != "456321":
+        raise HTTPException(status_code=400, detail="Неверный код доступа")
+    new_noodle = Noodle(
+        title=title,
+        description=description,
+        image=image,
+        manufacture_id=manufacture_id,
+        country_id=country_id,
+        recommendation=is_recommended,
+    )
+
+    db.add(new_noodle)
+    await db.commit()
+    await db.refresh(new_noodle)
+
+    return RedirectResponse(url="/", status_code=303)
