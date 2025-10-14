@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
 from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from noodlelibrary.database import get_db
 from noodlelibrary.models.country import Country
@@ -32,19 +33,13 @@ async def read_noodles(
     request: Request,
     db: AsyncSession = Depends(get_db),
 ):
-    stmt = select(Noodle).order_by(desc(Noodle.id))
-    result = await db.execute(stmt)
-    noodles = result.scalars().all()
-    country = await get_all_country(db)
-    manufacture = await get_all_manufacture(db)
+    countries = await get_all_country(db)
 
     return templates.TemplateResponse(
         "index.html",
         {
             "request": request,
-            "noodles": noodles,
-            "countries": country,
-            "manufacture": manufacture,
+            "countries": countries,
         },
     )
 
@@ -60,14 +55,14 @@ async def create_noodle_form(
 
     stmt_country = select(Country)
     result_country = await db.execute(stmt_country)
-    country_list = result_country.scalars().all()
+    countries = result_country.scalars().all()
 
     return templates.TemplateResponse(
         "create.html",
         {
             "request": request,
             "manufacture_list": manufacture_list,
-            "country_list": country_list,
+            "countries": countries,
         },
     )
 
@@ -111,3 +106,39 @@ async def create_noodle_post(
     await db.refresh(new_noodle)
 
     return RedirectResponse(url="/", status_code=303)
+
+
+@router.get(
+    "/countries/{country_name}",
+    response_class=HTMLResponse,
+    summary="Read Noodles By Country",
+)
+async def read_noodles_by_country(
+    country_name: str,
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    countries = await get_all_country(db)
+    manufacture = await get_all_manufacture(db)
+
+    stmt = (
+        select(Noodle)
+        .join(Noodle.country)
+        .filter(Country.name == country_name)
+        .options(selectinload(Noodle.country))
+        .options(selectinload(Noodle.manufacture))
+        .order_by(desc(Noodle.id))
+    )
+
+    result = await db.execute(stmt)
+    noodles = result.scalars().all()
+
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "noodles": noodles,
+            "countries": countries,
+            "manufacture": manufacture,
+        },
+    )
