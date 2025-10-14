@@ -28,8 +28,8 @@ async def get_all_manufacture(db: AsyncSession):
     return result.scalars().all()
 
 
-@router.get("/", response_class=HTMLResponse, summary="Read Noodles")
-async def read_noodles(
+@router.get("/", response_class=HTMLResponse, summary="Home Page")
+async def homepage(
     request: Request,
     db: AsyncSession = Depends(get_db),
 ):
@@ -49,19 +49,14 @@ async def create_noodle_form(
     request: Request,
     db: AsyncSession = Depends(get_db),
 ):
-    stmt_manufacture = select(Manufacture)
-    result_manufacture = await db.execute(stmt_manufacture)
-    manufacture_list = result_manufacture.scalars().all()
-
-    stmt_country = select(Country)
-    result_country = await db.execute(stmt_country)
-    countries = result_country.scalars().all()
+    manufacturers = await get_all_manufacture(db)
+    countries = await get_all_country(db)
 
     return templates.TemplateResponse(
         "create.html",
         {
             "request": request,
-            "manufacture_list": manufacture_list,
+            "manufacturers": manufacturers,
             "countries": countries,
         },
     )
@@ -119,7 +114,6 @@ async def read_noodles_by_country(
     db: AsyncSession = Depends(get_db),
 ):
     countries = await get_all_country(db)
-    manufacture = await get_all_manufacture(db)
 
     stmt = (
         select(Noodle)
@@ -139,6 +133,5 @@ async def read_noodles_by_country(
             "request": request,
             "noodles": noodles,
             "countries": countries,
-            "manufacture": manufacture,
         },
     )

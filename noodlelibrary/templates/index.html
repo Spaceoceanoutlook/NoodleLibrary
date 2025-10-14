@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>My Noodles</title>
+        <title>MyNoodles - Мир Лапши</title>
         <style>
             body {
                 font-family: "Segoe UI", Arial, sans-serif;
@@ -167,7 +167,7 @@
     </head>
     <body>
         <div class="header">
-            <a href="/"><h1>mynoodles</h1></a>
+            <a href="/"><h1>MyNoodles</h1></a>
         </div>
         <div class="countries">
             {% for country in countries %}
@@ -176,7 +176,6 @@
             >
             {% endfor %}
         </div>
-
         <div class="cards">
             {% if not noodles %}
             <div class="image-container">
@@ -208,12 +207,10 @@
                                 {{ noodle.manufacture.name }}</span
                             >
                         </div>
-
                         <div class="card-description">
                             {{ noodle.description }}
                         </div>
                     </div>
-
                     {% if noodle.recommendation %}
                     <div class="recommended-badge">⭐ Рекомендовано</div>
                     {% endif %}
