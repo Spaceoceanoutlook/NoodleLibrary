@@ -48,13 +48,11 @@ async def create_noodle_form(
     db: AsyncSession = Depends(get_db),
 ):
     countries = await get_all_country(db)
+    manufacturers = await get_all_manufacture(db)
 
     return templates.TemplateResponse(
         "create.html",
-        {
-            "request": request,
-            "countries": countries,
-        },
+        {"request": request, "countries": countries, "manufacturers": manufacturers},
     )
 
 
@@ -100,12 +98,12 @@ async def create_noodle_post(
 
 
 @router.get(
-    "/countries/{country_name}",
+    "/countries/{country}",
     response_class=HTMLResponse,
     summary="Read Noodles By Country",
 )
 async def read_noodles_by_country(
-    country_name: str,
+    country: str,
     request: Request,
     db: AsyncSession = Depends(get_db),
 ):
@@ -114,7 +112,7 @@ async def read_noodles_by_country(
     stmt = (
         select(Noodle)
         .join(Noodle.country)
-        .filter(Country.name == country_name)
+        .filter(Country.name == country)
         .options(selectinload(Noodle.country))
         .options(selectinload(Noodle.manufacture))
         .order_by(desc(Noodle.id))
@@ -132,6 +130,39 @@ async def read_noodles_by_country(
             "noodles": noodles,
             "countries": countries,
             "manufacturers": manufacturers,
+        },
+    )
+
+
+@router.get(
+    "/manufacturers/{manufacture}",
+    response_class=HTMLResponse,
+    summary="Read Noodles By Manufacture",
+)
+async def read_noodles_by_manufacture(
+    manufacture: str,
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    countries = await get_all_country(db)
+
+    stmt = (
+        select(Noodle)
+        .join(Noodle.manufacture)
+        .filter(Manufacture.name == manufacture)
+        .options(selectinload(Noodle.country))
+        .options(selectinload(Noodle.manufacture))
+        .order_by(desc(Noodle.id))
+    )
+
+    result = await db.execute(stmt)
+    noodles = result.scalars().all()
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "noodles": noodles,
+            "countries": countries,
         },
     )
 

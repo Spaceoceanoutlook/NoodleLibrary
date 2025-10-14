@@ -176,7 +176,9 @@
 
         <div class="manufacturers">
             {% if noodles %} {% for manufacture in manufacturers %}
-            <a href="">{{ manufacture }}</a>
+            <a href="/manufacturers/{{ manufacture | urlencode }}/"
+                >{{ manufacture }}</a
+            >
             {% endfor %} {% endif %}
         </div>
 
