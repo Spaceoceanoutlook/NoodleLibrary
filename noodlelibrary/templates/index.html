@@ -60,13 +60,20 @@
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 20px;
+                gap: 10px;
                 max-width: 1200px;
                 margin: 0 auto;
             }
+
             .card {
                 flex: 1 1 260px;
                 max-width: 320px;
+                background-color: #fff;
+                border-radius: 14px;
+                border: 1px solid #eee;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+                overflow: hidden;
+                transition: all 0.3s ease;
             }
 
             .card:hover {
@@ -75,12 +82,12 @@
             }
 
             .card img {
-                width: 100%;
+                width: 95%;
                 height: 240px;
                 object-fit: contain;
-                background-color: #f7f7f7;
+                background-color: #ffffff;
+                display: block;
                 padding: 10px;
-                border-bottom: 1px solid #eee;
             }
 
             .card-body {
@@ -136,22 +143,6 @@
                 box-shadow: 0 2px 5px rgba(255, 107, 107, 0.4);
             }
 
-            .show-more {
-                text-align: center;
-                margin-top: 45px;
-            }
-
-            .show-more button {
-                padding: 12px 28px;
-                background: linear-gradient(90deg, #5bc0de, #31b0d5);
-                color: white;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                font-size: 1.05em;
-                transition: all 0.3s ease;
-                box-shadow: 0 3px 8px rgba(49, 176, 213, 0.3);
-            }
             .image-container {
                 display: flex;
                 justify-content: center;
@@ -169,6 +160,7 @@
         <div class="header">
             <a href="/"><h1>MyNoodles</h1></a>
         </div>
+
         <div class="countries">
             {% for country in countries %}
             <a href="/countries/{{ country.name | urlencode }}/"
@@ -176,6 +168,7 @@
             >
             {% endfor %}
         </div>
+
         <div class="cards">
             {% if not noodles %}
             <div class="image-container">
@@ -187,14 +180,15 @@
             </div>
             {% endif %} {% for noodle in noodles %}
             <div class="card">
-                <img
-                    src="https://cdn.jsdelivr.net/gh/spaceoceanoutlook/static-assets@master/images/noodles/{{ noodle.image }}"
-                    alt="{{ noodle.title }}"
-                />
+                <a href="/noodle/{{ noodle.id }}">
+                    <img
+                        src="https://cdn.jsdelivr.net/gh/spaceoceanoutlook/static-assets@master/images/noodles/{{ noodle.image }}"
+                        alt="{{ noodle.title }}"
+                    />
+                </a>
                 <div class="card-body">
                     <div>
                         <div class="card-title">{{ noodle.title }}</div>
-
                         <div class="info-block">
                             <span
                                 ><span class="info-label">🌏 Страна:</span> {{

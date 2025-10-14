@@ -135,3 +135,31 @@ async def read_noodles_by_country(
             "countries": countries,
         },
     )
+
+
+@router.get("/noodle/{id}", response_class=HTMLResponse, summary="Read Noodle By Id")
+async def read_noodle(
+    id: int,
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    stmt = (
+        select(Noodle)
+        .filter(Noodle.id == id)
+        .options(selectinload(Noodle.country))
+        .options(selectinload(Noodle.manufacture))
+        .order_by(desc(Noodle.id))
+    )
+    result = await db.execute(stmt)
+    noodle = result.scalars().first()
+    page_title = noodle.title
+    countries = await get_all_country(db)
+    return templates.TemplateResponse(
+        "noodle_details.html",
+        {
+            "request": request,
+            "noodle": noodle,
+            "countries": countries,
+            "page_title": page_title,
+        },
+    )
