@@ -6,103 +6,159 @@
         <title>My Noodles</title>
         <style>
             body {
-                font-family: Arial, sans-serif;
+                font-family: "Segoe UI", Arial, sans-serif;
                 margin: 0;
-                padding: 20px;
-                background-color: #f4f4f9;
-            }
-            .header {
-                text-align: center;
-                margin-bottom: 30px;
-            }
-            .header h1 {
-                margin: 0;
+                padding: 30px;
+                background-color: #faf9f7;
                 color: #333;
             }
+
+            .header {
+                text-align: center;
+                margin-bottom: 45px;
+            }
+
+            .header h1 {
+                margin: 0;
+                font-size: 2.4em;
+                color: #222;
+                letter-spacing: 0.5px;
+            }
+
             .countries {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 8px;
-                margin-bottom: 30px;
+                gap: 10px;
+                margin-bottom: 40px;
             }
+
             .countries a {
                 text-decoration: none;
-                color: #333;
-                padding: 6px 12px;
-                border: 1px solid #ccc;
-                border-radius: 20px;
-                font-size: 0.9em;
+                color: #444;
+                padding: 8px 16px;
+                border: 1px solid #ddd;
+                border-radius: 25px;
+                font-size: 0.95em;
                 background-color: #fff;
-                transition: background 0.3s;
+                transition: all 0.3s ease;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             }
+
             .countries a:hover {
-                background-color: #eee;
+                background-color: #ffecc2;
+                border-color: #f3b74b;
+                transform: translateY(-1px);
             }
+
             .cards {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 28px;
+                justify-items: center;
             }
+
             .card {
                 background-color: #fff;
-                border-radius: 12px;
-                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 16px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
                 overflow: hidden;
-                transition: transform 0.2s;
+                transition:
+                    transform 0.25s ease,
+                    box-shadow 0.3s ease;
+                max-width: 360px;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
             }
+
             .card:hover {
-                transform: translateY(-3px);
+                transform: translateY(-6px);
+                box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
             }
+
             .card img {
-                width: 200px;
-                height: 200px;
-                object-fit: cover;
-                display: block;
-                margin: 0 auto;
+                width: 100%;
+                height: 240px;
+                object-fit: contain;
+                background-color: #f7f7f7;
+                padding: 10px;
+                border-bottom: 1px solid #eee;
             }
+
             .card-body {
-                padding: 15px;
+                padding: 18px 20px 22px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
             }
+
             .card-title {
-                font-size: 1.2em;
-                font-weight: bold;
-                margin-bottom: 8px;
-                color: #222;
+                font-size: 1.3em;
+                font-weight: 600;
+                margin-bottom: 10px;
+                color: #1e1e1e;
+                text-align: center;
             }
-            .card-country {
-                font-size: 0.9em;
-                color: #777;
-                margin-bottom: 8px;
-            }
-            .card-description {
+
+            .info-block {
+                margin-bottom: 12px;
                 font-size: 0.95em;
                 color: #555;
-                margin-bottom: 12px;
+                line-height: 1.5;
             }
+
+            .info-block span {
+                display: block;
+                margin-bottom: 4px;
+            }
+
+            .info-label {
+                font-weight: 600;
+                color: #444;
+            }
+
+            .card-description {
+                margin-top: 8px;
+                font-size: 0.92em;
+                color: #666;
+                text-align: justify;
+            }
+
             .recommended-badge {
+                align-self: center;
                 display: inline-block;
-                padding: 4px 8px;
-                font-size: 0.8em;
-                border-radius: 6px;
-                background-color: #d9534f;
+                padding: 6px 12px;
+                font-size: 0.85em;
+                border-radius: 10px;
+                background: linear-gradient(90deg, #ff6b6b, #ff8a65);
                 color: white;
+                margin-top: 14px;
+                font-weight: 500;
+                box-shadow: 0 2px 5px rgba(255, 107, 107, 0.4);
             }
+
             .show-more {
                 text-align: center;
-                margin-top: 30px;
+                margin-top: 45px;
             }
+
             .show-more button {
-                padding: 10px 20px;
-                background-color: #5bc0de;
+                padding: 12px 28px;
+                background: linear-gradient(90deg, #5bc0de, #31b0d5);
                 color: white;
                 border: none;
-                border-radius: 6px;
+                border-radius: 8px;
                 cursor: pointer;
-                font-size: 1em;
+                font-size: 1.05em;
+                transition: all 0.3s ease;
+                box-shadow: 0 3px 8px rgba(49, 176, 213, 0.3);
             }
+
             .show-more button:hover {
-                background-color: #31b0d5;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 12px rgba(49, 176, 213, 0.4);
             }
         </style>
     </head>
@@ -125,18 +181,37 @@
                     alt="{{ noodle.title }}"
                 />
                 <div class="card-body">
-                    <div class="card-title">{{ noodle.title }}</div>
-                    <div class="card-country">
-                        Страна:{{ noodle.country.name }}
+                    <div>
+                        <div class="card-title">{{ noodle.title }}</div>
+
+                        <div class="info-block">
+                            <span
+                                ><span class="info-label">🌏 Страна:</span> {{
+                                noodle.country.name }}</span
+                            >
+                            <span
+                                ><span class="info-label"
+                                    >🏭 Изготовитель:</span
+                                >
+                                {{ noodle.manufacture.name }}</span
+                            >
+                        </div>
+
+                        <div class="card-description">
+                            {{ noodle.description }}
+                        </div>
                     </div>
-                    <div>Изготовитель: {{ noodle.manufacture.name }}</div>
-                    <div class="card-description">{{ noodle.description }}</div>
+
                     {% if noodle.recommendation %}
-                    <div class="recommended-badge">Рекомендовано</div>
+                    <div class="recommended-badge">⭐ Рекомендовано</div>
                     {% endif %}
                 </div>
             </div>
             {% endfor %}
+        </div>
+
+        <div class="show-more">
+            <button>Показать больше</button>
         </div>
     </body>
 </html>
