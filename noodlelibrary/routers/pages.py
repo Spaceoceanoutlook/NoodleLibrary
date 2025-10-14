@@ -1,6 +1,9 @@
+from typing import Optional
+
 from fastapi import APIRouter, Depends, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
+from pydantic import ValidationError
 from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -32,15 +35,16 @@ async def read_noodles(
     stmt = select(Noodle).order_by(desc(Noodle.id))
     result = await db.execute(stmt)
     noodles = result.scalars().all()
-    noodles_for_template = [NoodleBase.model_validate(noodle) for noodle in noodles]
-    country_for_template = await get_all_country(db)
+    country = await get_all_country(db)
+    manufacture = await get_all_manufacture(db)
 
     return templates.TemplateResponse(
         "index.html",
         {
             "request": request,
-            "noodles": noodles_for_template,
-            "countries": country_for_template,
+            "noodles": noodles,
+            "countries": country,
+            "manufacture": manufacture,
         },
     )
 
@@ -77,16 +81,26 @@ async def create_noodle_post(
     manufacture_id: int = Form(...),
     country_id: int = Form(...),
     code: str = Form(...),
-    recommendation: str = Form("false"),
+    recommendation: Optional[str] = Form(None),
     db: AsyncSession = Depends(get_db),
 ):
     is_recommended = recommendation == "true"
     if code != "456321":
         raise HTTPException(status_code=400, detail="Неверный код доступа")
+
+    try:
+        noodle_schemas = NoodleBase(
+            title=title,
+            description=description,
+            image=image,
+        )
+    except ValidationError as e:
+        raise HTTPException(status_code=422, detail=e.errors()) from None
+
     new_noodle = Noodle(
-        title=title,
-        description=description,
-        image=image,
+        title=noodle_schemas.title,
+        description=noodle_schemas.description,
+        image=noodle_schemas.image,
         manufacture_id=manufacture_id,
         country_id=country_id,
         recommendation=is_recommended,

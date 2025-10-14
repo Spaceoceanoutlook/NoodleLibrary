@@ -4,7 +4,6 @@ from pydantic import BaseModel, ConfigDict
 
 
 class NoodleBase(BaseModel):
-    id: int
     title: str
     description: Optional[str] = None
     image: str
