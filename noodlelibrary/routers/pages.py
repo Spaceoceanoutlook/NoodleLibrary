@@ -34,13 +34,11 @@ async def homepage(
     db: AsyncSession = Depends(get_db),
 ):
     countries = await get_all_country(db)
+    manufacturers = await get_all_manufacture(db)
 
     return templates.TemplateResponse(
         "index.html",
-        {
-            "request": request,
-            "countries": countries,
-        },
+        {"request": request, "countries": countries, "manufacturers": manufacturers},
     )
 
 
@@ -49,14 +47,12 @@ async def create_noodle_form(
     request: Request,
     db: AsyncSession = Depends(get_db),
 ):
-    manufacturers = await get_all_manufacture(db)
     countries = await get_all_country(db)
 
     return templates.TemplateResponse(
         "create.html",
         {
             "request": request,
-            "manufacturers": manufacturers,
             "countries": countries,
         },
     )
@@ -126,13 +122,16 @@ async def read_noodles_by_country(
 
     result = await db.execute(stmt)
     noodles = result.scalars().all()
-
+    manufacturers = {
+        noodle.manufacture.name for noodle in noodles if noodle.manufacture
+    }
     return templates.TemplateResponse(
         "index.html",
         {
             "request": request,
             "noodles": noodles,
             "countries": countries,
+            "manufacturers": manufacturers,
         },
     )
 

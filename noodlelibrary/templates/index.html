@@ -30,15 +30,19 @@
                 color: #f3b74b;
             }
 
-            .countries {
+            .countries,
+            .manufacturers {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 10px;
-                margin-bottom: 40px;
+                margin: 0 auto 40px auto;
+                width: 100%;
+                max-width: 1290px;
             }
 
-            .countries a {
+            .countries a,
+            .manufacturers a {
                 text-decoration: none;
                 color: #444;
                 padding: 8px 16px;
@@ -50,7 +54,8 @@
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             }
 
-            .countries a:hover {
+            .countries a:hover,
+            .manufacturers a:hover {
                 background-color: #ffecc2;
                 border-color: #f3b74b;
                 transform: translateY(-1px);
@@ -167,6 +172,12 @@
                 >{{ country.name }}</a
             >
             {% endfor %}
+        </div>
+
+        <div class="manufacturers">
+            {% if noodles %} {% for manufacture in manufacturers %}
+            <a href="">{{ manufacture }}</a>
+            {% endfor %} {% endif %}
         </div>
 
         <div class="cards">
