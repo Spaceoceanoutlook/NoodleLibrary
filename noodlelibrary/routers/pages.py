@@ -1,6 +1,6 @@
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Form, HTTPException, Request
+from fastapi import APIRouter, Depends, Form, HTTPException, Request, Body
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import ValidationError
@@ -11,6 +11,7 @@ from sqlalchemy.orm import selectinload
 from noodlelibrary.database import get_db
 from noodlelibrary.models import Country, Manufacture, Noodle
 from noodlelibrary.schemas import CountryBase, ManufactureBase, NoodleBase
+from settings import settings
 
 router = APIRouter()
 templates = Jinja2Templates(directory="noodlelibrary/templates")
@@ -117,7 +118,8 @@ async def create_noodle_post(
     db: AsyncSession = Depends(get_db),
 ):
     is_recommended = recommendation == "true"
-    if code != "456321":
+
+    if code != settings.noodle_password:
         raise HTTPException(status_code=400, detail="Неверный код доступа")
 
     manufacture_id = await get_or_create_manufacture(
@@ -246,3 +248,35 @@ async def read_noodle(
             "page_title": page_title,
         },
     )
+
+
+@router.post("/noodle/{id}/edit", summary="Edit Noodle")
+async def edit_noodle(
+    id: int,
+    payload: dict = Body(...),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Обновляет описание и флаг рекомендации лапши.
+    payload = {
+        "description": str,
+        "recommendation": bool,
+        "password": str
+    }
+    """
+    stmt = select(Noodle).filter(Noodle.id == id)
+    result = await db.execute(stmt)
+    noodle = result.scalars().first()
+
+    password = payload.get("password")
+    if password != settings.noodle_password:
+        raise HTTPException(status_code=403, detail="Неверный пароль")
+
+    noodle.description = payload.get("description", noodle.description)
+    noodle.recommendation = payload.get("recommendation", noodle.recommendation)
+
+    db.add(noodle)
+    await db.commit()
+    await db.refresh(noodle)
+
+    return {"status": "ok"}

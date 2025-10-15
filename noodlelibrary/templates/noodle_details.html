@@ -12,7 +12,6 @@
                 background-color: #faf9f7;
                 color: #333;
             }
-
             .container {
                 max-width: 800px;
                 margin: 0 auto;
@@ -26,28 +25,23 @@
                 align-items: center;
                 text-align: center;
             }
-
             h1 {
                 font-size: 1.9em;
                 margin-bottom: 20px;
                 color: #222;
             }
-
             .image-wrapper {
                 width: 100%;
                 max-width: 250px;
                 margin-bottom: 25px;
             }
-
             .image-wrapper img {
                 width: 100%;
                 height: auto;
                 object-fit: contain;
                 display: block;
                 border-radius: 10px;
-                background: none;
             }
-
             .info-block {
                 margin-bottom: 18px;
                 font-size: 0.98em;
@@ -57,40 +51,49 @@
                 width: 100%;
                 max-width: 540px;
             }
-
             .info-block span {
                 display: block;
                 margin-bottom: 8px;
             }
-
             .info-label {
                 font-weight: 600;
                 color: #444;
             }
-
             .description {
                 margin-top: 12px;
                 font-size: 0.95em;
                 color: #555;
                 text-align: justify;
                 max-width: 600px;
+                border: 1px dashed transparent;
+                padding: 6px;
             }
-
-            .recommended-badge {
-                display: inline-block;
-                padding: 7px 12px;
-                font-size: 0.85em;
-                border-radius: 10px;
-                background: linear-gradient(90deg, #ff6b6b, #ff8a65);
+            .description[contenteditable="true"] {
+                border-color: #4caf50;
+                background: #f9fff9;
+            }
+            .edit-controls {
+                margin-top: 20px;
+                display: flex;
+                gap: 12px;
+            }
+            .btn {
+                padding: 10px 20px;
+                font-size: 1em;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
                 color: white;
-                font-weight: 500;
-                margin-top: 18px;
-                box-shadow: 0 2px 6px rgba(255, 107, 107, 0.4);
             }
-
+            .btn-save {
+                background: #4caf50;
+            }
+            .btn-cancel {
+                background: #f44336;
+            }
             .back-btn {
                 display: inline-block;
-                margin-top: 35px;
+                margin-top: 25px;
                 padding: 10px 24px;
                 background: linear-gradient(90deg, #5bc0de, #31b0d5);
                 color: white;
@@ -102,20 +105,10 @@
                 transition: all 0.3s ease;
                 box-shadow: 0 3px 8px rgba(49, 176, 213, 0.3);
             }
-
             .back-btn:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 5px 12px rgba(49, 176, 213, 0.4);
                 background: linear-gradient(90deg, #31b0d5, #5bc0de);
-            }
-
-            @media (max-width: 600px) {
-                .container {
-                    padding: 20px;
-                }
-                h1 {
-                    font-size: 1.6em;
-                }
             }
         </style>
     </head>
@@ -140,15 +133,79 @@
                 >
             </div>
 
-            <div class="description">{{ noodle.description }}</div>
+            <div class="description" id="description" contenteditable="true">
+                {{ noodle.description }}
+            </div>
 
-            {% if noodle.recommendation %}
-            <div class="recommended-badge">⭐ Рекомендовано</div>
-            {% endif %}
+            <div style="margin-top: 12px">
+                <label>
+                    <input
+                        type="checkbox"
+                        id="recommendation"
+                        {%
+                        if
+                        noodle.recommendation
+                        %}checked{%
+                        endif
+                        %}
+                    />
+                    Рекомендовано
+                </label>
+            </div>
+
+            <div class="edit-controls">
+                <button class="btn btn-save" onclick="saveChanges()">
+                    Сохранить
+                </button>
+                <button class="btn btn-cancel" onclick="cancelChanges()">
+                    Отмена
+                </button>
+            </div>
 
             <button class="back-btn" onclick="window.history.back()">
                 Назад
             </button>
         </div>
+
+        <script>
+            let originalDescription =
+                document.getElementById("description").innerText;
+            let originalRecommendation =
+                document.getElementById("recommendation").checked;
+
+            function cancelChanges() {
+                document.getElementById("description").innerText =
+                    originalDescription;
+                document.getElementById("recommendation").checked =
+                    originalRecommendation;
+            }
+
+            async function saveChanges() {
+                const password = prompt(
+                    "Введите пароль для сохранения изменений:",
+                );
+                if (!password) return;
+
+                const description = document
+                    .getElementById("description")
+                    .innerText.trim();
+                const recommendation =
+                    document.getElementById("recommendation").checked;
+
+                const response = await fetch("/noodle/{{ noodle.id }}/edit", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        description,
+                        recommendation,
+                        password,
+                    }),
+                });
+
+                if (response.ok) {
+                    window.location.href = window.location.pathname;
+                }
+            }
+        </script>
     </body>
 </html>
