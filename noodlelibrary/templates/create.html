@@ -27,7 +27,6 @@
             }
             input[type="text"],
             input[type="number"],
-            input[type="file"],
             textarea,
             select {
                 width: 100%;
@@ -54,16 +53,6 @@
             }
             button:hover {
                 background-color: #45a049;
-            }
-            .inline-btn {
-                margin-top: 8px;
-                background-color: #2196f3;
-            }
-            .inline-btn:hover {
-                background-color: #1e88e5;
-            }
-            .new-entry {
-                margin-top: 10px;
             }
         </style>
     </head>
@@ -94,22 +83,12 @@
                     </option>
                     {% endfor %}
                 </select>
-
-                <div class="new-entry">
-                    <input
-                        type="text"
-                        id="new_manufacture"
-                        name="new_manufacture"
-                        placeholder="Новый изготовитель"
-                    />
-                    <button
-                        type="button"
-                        class="inline-btn"
-                        onclick="addNewManufacture()"
-                    >
-                        Добавить изготовителя
-                    </button>
-                </div>
+                <input
+                    type="text"
+                    id="new_manufacture"
+                    name="new_manufacture"
+                    placeholder="Новый изготовитель"
+                />
             </div>
 
             <div class="form-group">
@@ -119,22 +98,12 @@
                     <option value="{{ country.id }}">{{ country.name }}</option>
                     {% endfor %}
                 </select>
-
-                <div class="new-entry">
-                    <input
-                        type="text"
-                        id="new_country"
-                        name="new_country"
-                        placeholder="Новая страна"
-                    />
-                    <button
-                        type="button"
-                        class="inline-btn"
-                        onclick="addNewCountry()"
-                    >
-                        Добавить страну
-                    </button>
-                </div>
+                <input
+                    type="text"
+                    id="new_country"
+                    name="new_country"
+                    placeholder="Новая страна"
+                />
             </div>
 
             <div class="form-group">
@@ -156,37 +125,5 @@
                 <button type="submit">Добавить лапшу</button>
             </div>
         </form>
-
-        <script>
-            function addNewManufacture() {
-                const input = document.getElementById("new_manufacture");
-                const select = document.getElementById("manufacture");
-                const name = input.value.trim();
-                if (name) {
-                    const option = document.createElement("option");
-                    option.text = name;
-                    option.value =
-                        "new_" + name.toLowerCase().replace(/\s+/g, "_");
-                    option.selected = true;
-                    select.add(option);
-                    input.value = "";
-                }
-            }
-
-            function addNewCountry() {
-                const input = document.getElementById("new_country");
-                const select = document.getElementById("country");
-                const name = input.value.trim();
-                if (name) {
-                    const option = document.createElement("option");
-                    option.text = name;
-                    option.value =
-                        "new_" + name.toLowerCase().replace(/\s+/g, "_");
-                    option.selected = true;
-                    select.add(option);
-                    input.value = "";
-                }
-            }
-        </script>
     </body>
 </html>

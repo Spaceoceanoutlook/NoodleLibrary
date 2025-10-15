@@ -27,9 +27,16 @@ async def get_all_manufacture(db: AsyncSession):
 
 
 async def get_or_create_manufacture(
-    db: AsyncSession, manufacture_id: str, new_manufacture: Optional[str]
+    db: AsyncSession,
+    new_manufacture: Optional[str] = None,
+    manufacture_id: Optional[int] = None,
 ) -> int:
-    if new_manufacture and new_manufacture.strip():
+    """
+    Возвращает id производителя.
+    - Если указан new_manufacture, создаёт нового производителя и возвращает его id.
+    - Иначе возвращает существующий manufacture_id.
+    """
+    if new_manufacture:
         schema = ManufactureBase(name=new_manufacture.strip())
         obj = Manufacture(name=schema.name)
         db.add(obj)
@@ -37,22 +44,23 @@ async def get_or_create_manufacture(
         await db.refresh(obj)
         return obj.id
 
-    if manufacture_id.startswith("new_"):
-        name = manufacture_id[4:].replace("_", " ").title()
-        schema = ManufactureBase(name=name)
-        obj = Manufacture(name=schema.name)
-        db.add(obj)
-        await db.commit()
-        await db.refresh(obj)
-        return obj.id
+    if manufacture_id is None:
+        raise ValueError("Не указан существующий manufacture_id")
 
     return int(manufacture_id)
 
 
 async def get_or_create_country(
-    db: AsyncSession, country_id: str, new_country: Optional[str]
+    db: AsyncSession,
+    new_country: Optional[str] = None,
+    country_id: Optional[int] = None,
 ) -> int:
-    if new_country and new_country.strip():
+    """
+    Возвращает id страны.
+    - Если указан new_country, создаёт новую страну и возвращает её id.
+    - Иначе возвращает существующий country_id.
+    """
+    if new_country:
         schema = CountryBase(name=new_country.strip())
         obj = Country(name=schema.name)
         db.add(obj)
@@ -60,14 +68,8 @@ async def get_or_create_country(
         await db.refresh(obj)
         return obj.id
 
-    if country_id.startswith("new_"):
-        name = country_id[4:].replace("_", " ").title()
-        schema = CountryBase(name=name)
-        obj = Country(name=schema.name)
-        db.add(obj)
-        await db.commit()
-        await db.refresh(obj)
-        return obj.id
+    if country_id is None:
+        raise ValueError("Не указан существующий country_id")
 
     return int(country_id)
 
@@ -119,9 +121,9 @@ async def create_noodle_post(
         raise HTTPException(status_code=400, detail="Неверный код доступа")
 
     manufacture_id = await get_or_create_manufacture(
-        db, manufacture_id, new_manufacture
+        db, new_manufacture, manufacture_id
     )
-    country_id = await get_or_create_country(db, country_id, new_country)
+    country_id = await get_or_create_country(db, new_country, country_id)
 
     try:
         noodle_schemas = NoodleBase(
