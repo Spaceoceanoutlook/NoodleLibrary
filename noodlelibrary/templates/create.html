@@ -41,9 +41,6 @@
                 height: 120px;
                 resize: vertical;
             }
-            .multi-select {
-                height: 150px;
-            }
             button {
                 background-color: #4caf50;
                 color: white;
@@ -58,17 +55,15 @@
             button:hover {
                 background-color: #45a049;
             }
-            .required:after {
-                content: " *";
-                color: red;
+            .inline-btn {
+                margin-top: 8px;
+                background-color: #2196f3;
             }
-            .file-upload {
+            .inline-btn:hover {
+                background-color: #1e88e5;
+            }
+            .new-entry {
                 margin-top: 10px;
-            }
-            .form-note {
-                font-size: 14px;
-                color: #666;
-                margin-top: 5px;
             }
         </style>
     </head>
@@ -76,44 +71,122 @@
         <h1>Добавить новую лапшу</h1>
         <form action="/create" method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="title"">Название лапши</label>
+                <label for="title">Название лапши</label>
                 <input type="text" id="title" name="title" required />
             </div>
+
             <div class="form-group">
                 <label for="description">Описание</label>
                 <textarea id="description" name="description"></textarea>
             </div>
+
             <div class="form-group">
                 <label for="image">Название постера</label>
                 <input type="text" id="image" name="image" required />
             </div>
+
             <div class="form-group">
                 <label for="manufacture">Изготовитель</label>
                 <select id="manufacture" name="manufacture_id">
                     {% for manufacture in manufacturers %}
-                    <option value="{{ manufacture.id }}">{{ manufacture.name }}</option>
+                    <option value="{{ manufacture.id }}">
+                        {{ manufacture.name }}
+                    </option>
                     {% endfor %}
                 </select>
+
+                <div class="new-entry">
+                    <input
+                        type="text"
+                        id="new_manufacture"
+                        name="new_manufacture"
+                        placeholder="Новый изготовитель"
+                    />
+                    <button
+                        type="button"
+                        class="inline-btn"
+                        onclick="addNewManufacture()"
+                    >
+                        Добавить изготовителя
+                    </button>
+                </div>
             </div>
+
             <div class="form-group">
                 <label for="country">Страна</label>
-                <select
-                    id="country"
-                    name="country_id"
-                >
+                <select id="country" name="country_id">
                     {% for country in countries %}
                     <option value="{{ country.id }}">{{ country.name }}</option>
                     {% endfor %}
                 </select>
+
+                <div class="new-entry">
+                    <input
+                        type="text"
+                        id="new_country"
+                        name="new_country"
+                        placeholder="Новая страна"
+                    />
+                    <button
+                        type="button"
+                        class="inline-btn"
+                        onclick="addNewCountry()"
+                    >
+                        Добавить страну
+                    </button>
+                </div>
             </div>
-            <input type="checkbox" id="recommendation" name="recommendation" value="true"><label for="recommendation">Рекомендовать</label>
+
+            <div class="form-group">
+                <input
+                    type="checkbox"
+                    id="recommendation"
+                    name="recommendation"
+                    value="true"
+                />
+                <label for="recommendation">Рекомендовать</label>
+            </div>
+
             <div class="form-group">
                 <label for="code">Код</label>
                 <input type="text" id="code" name="code" required />
             </div>
+
             <div class="form-group">
                 <button type="submit">Добавить лапшу</button>
             </div>
         </form>
+
+        <script>
+            function addNewManufacture() {
+                const input = document.getElementById("new_manufacture");
+                const select = document.getElementById("manufacture");
+                const name = input.value.trim();
+                if (name) {
+                    const option = document.createElement("option");
+                    option.text = name;
+                    option.value =
+                        "new_" + name.toLowerCase().replace(/\s+/g, "_");
+                    option.selected = true;
+                    select.add(option);
+                    input.value = "";
+                }
+            }
+
+            function addNewCountry() {
+                const input = document.getElementById("new_country");
+                const select = document.getElementById("country");
+                const name = input.value.trim();
+                if (name) {
+                    const option = document.createElement("option");
+                    option.text = name;
+                    option.value =
+                        "new_" + name.toLowerCase().replace(/\s+/g, "_");
+                    option.selected = true;
+                    select.add(option);
+                    input.value = "";
+                }
+            }
+        </script>
     </body>
 </html>

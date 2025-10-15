@@ -9,10 +9,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from noodlelibrary.database import get_db
-from noodlelibrary.models.country import Country
-from noodlelibrary.models.manufacture import Manufacture
-from noodlelibrary.models.noodle import Noodle
-from noodlelibrary.schemas.noodle import NoodleBase
+from noodlelibrary.models import Country, Manufacture, Noodle
+from noodlelibrary.schemas import NoodleBase, ManufactureBase, CountryBase
 
 router = APIRouter()
 templates = Jinja2Templates(directory="noodlelibrary/templates")
@@ -26,6 +24,52 @@ async def get_all_country(db: AsyncSession):
 async def get_all_manufacture(db: AsyncSession):
     result = await db.execute(select(Manufacture))
     return result.scalars().all()
+
+
+async def get_or_create_manufacture(
+    db: AsyncSession, manufacture_id: str, new_manufacture: Optional[str]
+) -> int:
+    if new_manufacture and new_manufacture.strip():
+        schema = ManufactureBase(name=new_manufacture.strip())
+        obj = Manufacture(name=schema.name)
+        db.add(obj)
+        await db.commit()
+        await db.refresh(obj)
+        return obj.id
+
+    if manufacture_id.startswith("new_"):
+        name = manufacture_id[4:].replace("_", " ").title()
+        schema = ManufactureBase(name=name)
+        obj = Manufacture(name=schema.name)
+        db.add(obj)
+        await db.commit()
+        await db.refresh(obj)
+        return obj.id
+
+    return int(manufacture_id)
+
+
+async def get_or_create_country(
+    db: AsyncSession, country_id: str, new_country: Optional[str]
+) -> int:
+    if new_country and new_country.strip():
+        schema = CountryBase(name=new_country.strip())
+        obj = Country(name=schema.name)
+        db.add(obj)
+        await db.commit()
+        await db.refresh(obj)
+        return obj.id
+
+    if country_id.startswith("new_"):
+        name = country_id[4:].replace("_", " ").title()
+        schema = CountryBase(name=name)
+        obj = Country(name=schema.name)
+        db.add(obj)
+        await db.commit()
+        await db.refresh(obj)
+        return obj.id
+
+    return int(country_id)
 
 
 @router.get("/", response_class=HTMLResponse, summary="Home Page")
@@ -62,15 +106,22 @@ async def create_noodle_post(
     title: str = Form(...),
     description: str = Form(""),
     image: str = Form(...),
-    manufacture_id: int = Form(...),
-    country_id: int = Form(...),
+    manufacture_id: str = Form(...),
+    country_id: str = Form(...),
     code: str = Form(...),
     recommendation: Optional[str] = Form(None),
+    new_manufacture: Optional[str] = Form(None),
+    new_country: Optional[str] = Form(None),
     db: AsyncSession = Depends(get_db),
 ):
     is_recommended = recommendation == "true"
     if code != "456321":
         raise HTTPException(status_code=400, detail="Неверный код доступа")
+
+    manufacture_id = await get_or_create_manufacture(
+        db, manufacture_id, new_manufacture
+    )
+    country_id = await get_or_create_country(db, country_id, new_country)
 
     try:
         noodle_schemas = NoodleBase(
