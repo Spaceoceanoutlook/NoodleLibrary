@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict gXaE09B4hP8H4wYz06yw15tF46efXRdya7BoQ42vADbgpFWX64yk0zLbMSnKPl1
+\restrict aFVmNPR2ibj58G8RNRbSzbZaZsb7hRbOfIWfgDEAM3hE47DRkfiWH8oVs39jlNH
 
 -- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
 -- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
@@ -256,6 +256,7 @@ COPY public.manufactures (id, name) FROM stdin;
 61	Анаком
 62	Okwok
 63	KingPho
+65	Sue Sat
 \.
 
 
@@ -406,6 +407,10 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 144	Курица сыр	не пробовал	f	7	62	Okwok_chiken_cheese.webp
 145	Говядина огурец	не пробовал	f	7	62	Okwok_beef.webp
 146	Говядина сальса	не пробовал	f	7	62	Okwok_beef_salsa.webp
+155	Том Ям	Бульон достаточно острый, лапша обычная	f	3	65	SueSat_TomYam.jpg
+156	Вантуккон Чампонг	Лапша как в дошираке, бульон хороший, но острота на грани	f	1	9	Paldo_Vantukon_Champong.webp
+157	Вантуккон	Лапша как в дошираке, бульон хороший, острота выше среднего	f	1	9	Paldo_Vantukon.webp
+158	Bibimmen	не пробовал	f	1	9	Paldo_Bibimmen.webp
 \.
 
 
@@ -413,21 +418,21 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 -- Name: countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.countries_id_seq', 1, false);
+SELECT pg_catalog.setval('public.countries_id_seq', 14, true);
 
 
 --
 -- Name: manufactures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.manufactures_id_seq', 1, false);
+SELECT pg_catalog.setval('public.manufactures_id_seq', 65, true);
 
 
 --
 -- Name: noodles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.noodles_id_seq', 1, false);
+SELECT pg_catalog.setval('public.noodles_id_seq', 158, true);
 
 
 --
@@ -482,5 +487,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict gXaE09B4hP8H4wYz06yw15tF46efXRdya7BoQ42vADbgpFWX64yk0zLbMSnKPl1
+\unrestrict aFVmNPR2ibj58G8RNRbSzbZaZsb7hRbOfIWfgDEAM3hE47DRkfiWH8oVs39jlNH
 

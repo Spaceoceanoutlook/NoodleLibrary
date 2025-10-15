@@ -10,7 +10,7 @@ from sqlalchemy.orm import selectinload
 
 from noodlelibrary.database import get_db
 from noodlelibrary.models import Country, Manufacture, Noodle
-from noodlelibrary.schemas import NoodleBase, ManufactureBase, CountryBase
+from noodlelibrary.schemas import CountryBase, ManufactureBase, NoodleBase
 
 router = APIRouter()
 templates = Jinja2Templates(directory="noodlelibrary/templates")
