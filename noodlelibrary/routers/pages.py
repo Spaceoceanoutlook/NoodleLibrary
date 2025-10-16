@@ -1,12 +1,12 @@
-from typing import Optional
+from typing import Optional, Type, TypeVar
 
-from fastapi import APIRouter, Depends, Form, HTTPException, Request, Body
+from fastapi import APIRouter, Body, Depends, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from pydantic import ValidationError
+from pydantic import BaseModel, ValidationError
 from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
+from sqlalchemy.orm import DeclarativeBase, selectinload
 
 from noodlelibrary.database import get_db
 from noodlelibrary.models import Country, Manufacture, Noodle
@@ -15,6 +15,9 @@ from settings import settings
 
 router = APIRouter()
 templates = Jinja2Templates(directory="noodlelibrary/templates")
+
+ModelType = TypeVar("ModelType", bound=DeclarativeBase)
+SchemaType = TypeVar("SchemaType", bound=BaseModel)
 
 
 async def get_all_country(db: AsyncSession):
@@ -27,52 +30,28 @@ async def get_all_manufacture(db: AsyncSession):
     return result.scalars().all()
 
 
-async def get_or_create_manufacture(
+async def get_or_create(
     db: AsyncSession,
-    new_manufacture: Optional[str] = None,
-    manufacture_id: Optional[int] = None,
+    model: Type[ModelType],
+    schema: Type[SchemaType],
+    new_name: Optional[str] = None,
+    obj_id: Optional[int] = None,
 ) -> int:
     """
-    Возвращает id производителя.
-    - Если указан new_manufacture, создаёт нового производителя и возвращает его id.
-    - Иначе возвращает существующий manufacture_id.
+    Универсальная функция для получения или создания объекта по названию или ID.
+    - Если передан new_name, создается объект с этим именем и возвращается его obj_id.
+    - Если передан только obj_id, то он и возвращается.
     """
-    if new_manufacture:
-        schema = ManufactureBase(name=new_manufacture.strip())
-        obj = Manufacture(name=schema.name)
+    if new_name:
+        schema = schema(name=new_name.strip())
+        obj = model(name=schema.name)
         db.add(obj)
         await db.commit()
         await db.refresh(obj)
         return obj.id
 
-    if manufacture_id is None:
-        raise ValueError("Не указан существующий manufacture_id")
-
-    return int(manufacture_id)
-
-
-async def get_or_create_country(
-    db: AsyncSession,
-    new_country: Optional[str] = None,
-    country_id: Optional[int] = None,
-) -> int:
-    """
-    Возвращает id страны.
-    - Если указан new_country, создаёт новую страну и возвращает её id.
-    - Иначе возвращает существующий country_id.
-    """
-    if new_country:
-        schema = CountryBase(name=new_country.strip())
-        obj = Country(name=schema.name)
-        db.add(obj)
-        await db.commit()
-        await db.refresh(obj)
-        return obj.id
-
-    if country_id is None:
-        raise ValueError("Не указан существующий country_id")
-
-    return int(country_id)
+    if obj_id is not None:
+        return obj_id
 
 
 @router.get("/", response_class=HTMLResponse, summary="Home Page")
@@ -122,10 +101,20 @@ async def create_noodle_post(
     if code != settings.noodle_password:
         raise HTTPException(status_code=400, detail="Неверный код доступа")
 
-    manufacture_id = await get_or_create_manufacture(
-        db, new_manufacture, manufacture_id
+    manufacture_id = await get_or_create(
+        db=db,
+        model=Manufacture,
+        schema=ManufactureBase,
+        new_name=new_manufacture,
+        obj_id=manufacture_id,
     )
-    country_id = await get_or_create_country(db, new_country, country_id)
+    country_id = await get_or_create(
+        db=db,
+        model=Country,
+        schema=CountryBase,
+        new_name=new_country,
+        obj_id=country_id,
+    )
 
     try:
         noodle_schemas = NoodleBase(
