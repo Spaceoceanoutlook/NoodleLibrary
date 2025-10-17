@@ -1,14 +1,23 @@
 services:
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: noodlesdb
-      POSTGRES_USER: valerii
-      POSTGRES_PASSWORD: 456321
+  web:
+    build: .
+    container_name: noodlelibrary_web
+    env_file: .env
+    command: uvicorn noodlelibrary.main:app --host 0.0.0.0 --port 8000
     ports:
-      - "5432:5432"
+      - "0.0.0.0:8000:8000"
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: postgres:16
+    container_name: noodlesdb
+    env_file: .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./backup:/docker-entrypoint-initdb.d
+    restart: always
 
 volumes:
   postgres_data:
