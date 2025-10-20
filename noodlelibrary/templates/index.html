@@ -233,7 +233,7 @@
         <div class="cards">
             {% if not noodles %}
             <div class="image-container">
-                <a href="/" class="recommend-link">
+                <a href="/recommendation/" class="recommend-link">
                     <img
                         src="https://cdn.jsdelivr.net/gh/spaceoceanoutlook/static-assets@master/images/noodles/noodle.png"
                         alt="logo"
@@ -271,7 +271,9 @@
                         </div>
                     </div>
                     {% if noodle.recommendation %}
-                    <div class="recommended-badge">⭐ Рекомендовано</div>
+                    <a href="/recommendation/" class="recommend-link">
+                        <div class="recommended-badge">⭐ Рекомендовано</div></a
+                    >
                     {% endif %}
                 </div>
             </div>

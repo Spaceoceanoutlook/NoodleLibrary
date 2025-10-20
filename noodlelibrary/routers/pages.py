@@ -269,3 +269,35 @@ async def edit_noodle(
     await db.refresh(noodle)
 
     return {"status": "ok"}
+
+
+@router.get(
+    "/recommendation/",
+    response_class=HTMLResponse,
+    summary="Read Noodles By Recommendation",
+)
+async def read_noodles_by_recommendation(
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    countries = await get_all_country(db)
+
+    stmt = (
+        select(Noodle)
+        .where(Noodle.recommendation.is_(True))
+        .options(selectinload(Noodle.country))
+        .options(selectinload(Noodle.manufacture))
+        .order_by(desc(Noodle.id))
+    )
+
+    result = await db.execute(stmt)
+    noodles = result.scalars().all()
+
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "noodles": noodles,
+            "countries": countries,
+        },
+    )
