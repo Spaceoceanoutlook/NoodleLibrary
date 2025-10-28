@@ -4,7 +4,7 @@ from fastapi import APIRouter, Body, Depends, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, ValidationError
-from sqlalchemy import desc, select
+from sqlalchemy import desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase, selectinload
 
@@ -301,3 +301,19 @@ async def read_noodles_by_recommendation(
             "countries": countries,
         },
     )
+
+
+@router.get(
+    "/stat/",
+    summary="Noodle statistics",
+)
+async def noodle_statistics(
+    request: Request,
+    db: AsyncSession = Depends(get_db),
+):
+    stmt = select(func.count(Noodle.id))
+
+    result = await db.execute(stmt)
+    total_count = result.scalar()
+
+    return {"total_noodles": total_count}
