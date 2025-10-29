@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
-\restrict Rku0WNnsYiJHblcsTsnigUzOfqd2hd7RqbkRydzbYxkYJDWj4C6ehZmCBbcdmVH
+\restrict UvygHVdHPgcaL6agKGaoAOopQqaed6DV4PO3L9FTJSYe3fk41CjEcRgub2wXMh0
 
--- Dumped from database version 15.14 (Debian 15.14-1.pgdg13+1)
--- Dumped by pg_dump version 15.14 (Debian 15.14-1.pgdg13+1)
+-- Dumped from database version 16.10 (Debian 16.10-1.pgdg13+1)
+-- Dumped by pg_dump version 16.10 (Debian 16.10-1.pgdg13+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -58,7 +58,7 @@ CREATE SEQUENCE public.countries_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.countries_id_seq OWNER TO valerii;
+ALTER SEQUENCE public.countries_id_seq OWNER TO valerii;
 
 --
 -- Name: countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: valerii
@@ -92,7 +92,7 @@ CREATE SEQUENCE public.manufactures_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.manufactures_id_seq OWNER TO valerii;
+ALTER SEQUENCE public.manufactures_id_seq OWNER TO valerii;
 
 --
 -- Name: manufactures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: valerii
@@ -131,7 +131,7 @@ CREATE SEQUENCE public.noodles_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.noodles_id_seq OWNER TO valerii;
+ALTER SEQUENCE public.noodles_id_seq OWNER TO valerii;
 
 --
 -- Name: noodles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: valerii
@@ -187,6 +187,7 @@ COPY public.countries (id, name) FROM stdin;
 11	Россия
 12	Кыргызстан
 13	Турция
+15	США
 \.
 
 
@@ -258,6 +259,7 @@ COPY public.manufactures (id, name) FROM stdin;
 63	KingPho
 65	Sue Sat
 66	Acecook
+67	Sunaoshi
 \.
 
 
@@ -286,7 +288,6 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 20	Mi Xao	Бульон ни о чём, лапша приятная, не острая, но мало для обеда и сухо.	f	2	10	Miliket_Mi_Xao.jpg
 21	Chicken Flavor	Немного перченая лапша куриный бульон, есть можно.	t	2	3	Vifon_Chicken_Flavor.jpeg
 22	Bo Ham	Приятный бульон, лапша почти не острая.	f	2	11	Cung_Dinh_Bo_Ham.jpg
-23	Pho Bo	Хороший суп, лёгкая острота на послевкусие.	t	2	12	GauDo_Pho_Bo.jpg
 24	Pho Ga	Вкусная, хорошая, можно брать.	t	2	3	Vifon_Pho_Ga.jpg
 25	Shrims Flavour	Ни о чем.	f	2	3	Vifon_Shrims_Flavour.png
 26	Pho Bo	Не острый, вкусный суп.	t	3	7	Mama_Pho_Bo.jpg
@@ -404,7 +405,6 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 155	Том Ям	Бульон достаточно острый, лапша обычная	f	3	65	SueSat_TomYam.jpg
 156	Вантуккон Чампонг	Лапша как в дошираке, бульон хороший, но острота на грани	f	1	9	Paldo_Vantukon_Champong.webp
 157	Вантуккон	Лапша как в дошираке, бульон хороший, острота выше среднего	f	1	9	Paldo_Vantukon.webp
-158	Bibimmen	не пробовал	f	1	9	Paldo_Bibimmen.webp
 143	Ягненок	Бульон приятный простой, лапша простая, не остро	f	7	62	Okwok_lamb.webp
 145	Говядина огурец	Пахнет как плов, бульон похож на зирвак, лапша обычная	f	7	62	Okwok_beef.webp
 137	Tom Yam	Бульон кисло-остренький, не очень, лапша обычная	f	3	49	Jaya_tom_yam.webp
@@ -412,7 +412,11 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 103	С крабом	Вкусная лапша, крабовый соус, острая. В комплекте маршмелоу и горох в панировке	f	4	45	China_unknown.jpg
 90	Mi Tom	Лапша стандартная вьетнамская, бульон лёгкий, чуть остро, не супер	f	2	37	ReenaMiTomChua.webp
 144	Курица сыр	не знаю	f	7	62	Okwok_chiken_cheese.webp
-146	Говядина сальса	не знаю не пробовал	f	7	62	Okwok_beef_salsa.webp
+160	Удон со вкусом курицы	Вкусная лапша, бульон куриный	f	4	39	Jinmailang_udon_chiken.webp
+158	Bibimmen	Хорошая лапша, вкусный сладко-острый соус. Без бульона	t	1	9	Paldo_Bibimmen.webp
+146	Говядина сальса	Бульон чуть острый, похож на зирвак, лапша плотная, не очень	f	7	62	Okwok_beef_salsa.webp
+161	Мисо рамен	Лапша нормальная, мисо бульон слабый, не острый	f	5	67	Sunaoshi_miso_ramen.webp
+162	Stir Fry	Американская версия японского бренда.\r\nНеплохая лапша, приятный сладковатый бульон	f	15	15	cup_noodle_stir_fry.webp
 \.
 
 
@@ -420,21 +424,21 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 -- Name: countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.countries_id_seq', 14, true);
+SELECT pg_catalog.setval('public.countries_id_seq', 15, true);
 
 
 --
 -- Name: manufactures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.manufactures_id_seq', 66, true);
+SELECT pg_catalog.setval('public.manufactures_id_seq', 67, true);
 
 
 --
 -- Name: noodles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.noodles_id_seq', 159, true);
+SELECT pg_catalog.setval('public.noodles_id_seq', 162, true);
 
 
 --
@@ -489,5 +493,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict Rku0WNnsYiJHblcsTsnigUzOfqd2hd7RqbkRydzbYxkYJDWj4C6ehZmCBbcdmVH
+\unrestrict UvygHVdHPgcaL6agKGaoAOopQqaed6DV4PO3L9FTJSYe3fk41CjEcRgub2wXMh0
 
