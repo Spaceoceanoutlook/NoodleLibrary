@@ -272,7 +272,7 @@ async def edit_noodle(
 
 
 @router.get(
-    "/recommendation/",
+    "/recommendation",
     response_class=HTMLResponse,
     summary="Read Noodles By Recommendation",
 )
@@ -304,7 +304,7 @@ async def read_noodles_by_recommendation(
 
 
 @router.get(
-    "/stat/",
+    "/statistics",
     summary="Noodle statistics",
 )
 async def noodle_statistics(
