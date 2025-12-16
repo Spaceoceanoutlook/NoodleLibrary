@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict UvygHVdHPgcaL6agKGaoAOopQqaed6DV4PO3L9FTJSYe3fk41CjEcRgub2wXMh0
+\restrict o1zaDTGdeQwJonRHHXs6YRom9YE72CGg2JbRPy9qgCoGGqGPHwLwzlfzH7pVvY9
 
 -- Dumped from database version 16.10 (Debian 16.10-1.pgdg13+1)
 -- Dumped by pg_dump version 16.10 (Debian 16.10-1.pgdg13+1)
@@ -260,6 +260,10 @@ COPY public.manufactures (id, name) FROM stdin;
 65	Sue Sat
 66	Acecook
 67	Sunaoshi
+68	Master Kan
+69	Ningbo
+70	Luo Ba Wang
+71	Migawon
 \.
 
 
@@ -347,7 +351,6 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 81	с морепродуктами	Простая лапша и солененький бульон, нет даже сушеного лука	f	11	35	SINOMIE.jpg
 82	Рис со свининой в рыбном соусе	Залить воду к рису и немного к сухому бульону. Овощной мясной соус острый.	f	4	36	Wang_ZI_Feng_Fan.jpg
 83	Max Chiken	Бульон не солёный, не перченный, лапша из-за этого пресная	f	11	31	BigBonMaxChicken.jpg
-84	Korean Clay Pot Ramyun	Нормально, не остро, есть можно	f	1	1	Nongshim_korean_clay_pot_ramyun.jpg
 85	Shrimp Flavour	Вкусненький суп, чуть чуть острый, в меру, можно брать	t	4	17	Master_kong_shrimp.jpg
 86	Tom Yum	Вкусный бульон, грибы интересный сладкий вкус, макароны вьетнамские стандартные, чуть остро	t	2	37	Reena-Tom-Yum.jpg
 87	Crab Flavor	Лёгкий не супер насыщенный мисо бульон, лапша плоская, не остро	f	2	3	Vifon_crab_flavor.jpg
@@ -400,7 +403,6 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 112	Shrims	Лапша стандартная вьетнамская, бульон кисловато-острый	f	3	7	mama_shrimps_flavour.webp
 108	Kimchi	Неплохой, остренький бульон (чили в пакетике), лапшу лучше проварить	f	3	7	mama_kimchi.webp
 134	Tien Shan	Приятная лапша, приятный соус, приятная острота	t	7	31	BigBon_Tien.webp
-141	Beef	Бульон топ, сама лапша типичная китайская, не остро, можно брать	t	4	39	JinMaiLang_Beef.webp
 142	Pho ga	Нормальная Фо, не лучшая, не худшая	f	2	63	KingPho_chicken.webp
 155	Том Ям	Бульон достаточно острый, лапша обычная	f	3	65	SueSat_TomYam.jpg
 156	Вантуккон Чампонг	Лапша как в дошираке, бульон хороший, но острота на грани	f	1	9	Paldo_Vantukon_Champong.webp
@@ -411,12 +413,30 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 159	Mi Lau Thai	Вкусненький бульон и лапша, в меру остро	t	2	66	Acecook_LauThai.webp
 103	С крабом	Вкусная лапша, крабовый соус, острая. В комплекте маршмелоу и горох в панировке	f	4	45	China_unknown.jpg
 90	Mi Tom	Лапша стандартная вьетнамская, бульон лёгкий, чуть остро, не супер	f	2	37	ReenaMiTomChua.webp
-144	Курица сыр	не знаю	f	7	62	Okwok_chiken_cheese.webp
 160	Удон со вкусом курицы	Вкусная лапша, бульон куриный	f	4	39	Jinmailang_udon_chiken.webp
 158	Bibimmen	Хорошая лапша, вкусный сладко-острый соус. Без бульона	t	1	9	Paldo_Bibimmen.webp
 146	Говядина сальса	Бульон чуть острый, похож на зирвак, лапша плотная, не очень	f	7	62	Okwok_beef_salsa.webp
 161	Мисо рамен	Лапша нормальная, мисо бульон слабый, не острый	f	5	67	Sunaoshi_miso_ramen.webp
 162	Stir Fry	Американская версия японского бренда.\r\nНеплохая лапша, приятный сладковатый бульон	f	15	15	cup_noodle_stir_fry.webp
+163	Omelette	Вкусный бульон, приятная острота, лапша стандартная 	t	4	68	master_kan_omelette.webp
+164	Карбонара 	Лапша без бульона, сливочно-сырная, приятная, не остро	f	4	69	ningbo_carbanara.webp
+165	Сырная лапша	Лапша со сладковатым немного химическим сырным соусом, не остро	f	4	69	ningbo_cheese.webp
+144	Курица сыр	Лапша простая, бульон соленый химозный	f	7	62	Okwok_chiken_cheese.webp
+168	Snack Ramen	Хороший бульон и лапша, не остро почти	t	1	5	OTTOGI_SNACK_RAMEN.webp
+167	Seaweed Ramen	Вкусный мисо бульон с морской капустой, не острый, лапша стандартная	t	4	39	Jinmailang_seaweed_ramen.webp
+169	Pho chiken flavour	Вкусный Фо	t	2	66	acecook_pho_chiken_flavour.webp
+166	С курицей	Приятный куриный бульон, неплохая лапша, большая порция, не остро	f	4	69	ningbo_chicken.webp
+170	Рис с картофелем и говядиной	Самовар. Рис нормальный, соус остренький, порция большая	f	4	45	Risenoname.webp
+141	Beef	Бульон хороший, сама лапша типичная китайская, не остро, можно брать	f	4	39	JinMaiLang_Beef.webp
+171	Chicken Flavor	Приятный бульон и лапша, немного остренько	f	1	9	Paldo_chiken.webp
+172	Kim Chi 	Приятный кисловатый островатый бульон, лапша нормальная	f	2	37	Reena_Kim_chi.webp
+173	Рисовая лапша с улитками	Лапша скользкая, бульон приятный, куча допов, которые воняют дедовской мазью	f	4	70	Luo_Ba_Wang_Rise.webp
+174	Сырный рамен	Густой сырно-молочный бульон, не остро	f	1	5	Ottogi_Real_Cheese.webp
+175	С яблоками	Вкусный бульон и лапша	t	4	39	Jinmailang_apple.webp
+176	Mep - Garlic & Clam	Лапша нормальная, бульон щиплет язык как сычуаньский Перец, остро, горько, за гранью	f	1	2	Samyang_Mep_Garlic&Clam_Ramyeon.webp
+177	Chacharoni	Пока не пробовал	f	1	2	Samyang_Chacharoni.webp
+178	Seafood Ramen	Лапша стандартная, бульон средний, напоминает старый доширак, лёгкая комфортная острота	f	1	71	Migawon_seafood.webp
+179	Cheese Ramen	не пробовал	f	1	71	Migawon_cheese.webp
 \.
 
 
@@ -431,14 +451,14 @@ SELECT pg_catalog.setval('public.countries_id_seq', 15, true);
 -- Name: manufactures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.manufactures_id_seq', 67, true);
+SELECT pg_catalog.setval('public.manufactures_id_seq', 71, true);
 
 
 --
 -- Name: noodles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.noodles_id_seq', 162, true);
+SELECT pg_catalog.setval('public.noodles_id_seq', 179, true);
 
 
 --
@@ -493,5 +513,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict UvygHVdHPgcaL6agKGaoAOopQqaed6DV4PO3L9FTJSYe3fk41CjEcRgub2wXMh0
+\unrestrict o1zaDTGdeQwJonRHHXs6YRom9YE72CGg2JbRPy9qgCoGGqGPHwLwzlfzH7pVvY9
 
