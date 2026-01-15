@@ -1,3 +1,4 @@
+from pydantic import ConfigDict
 from pydantic_settings import BaseSettings
 
 
@@ -12,7 +13,7 @@ class Settings(BaseSettings):
     db_pool_size: int
     db_max_overflow: int
 
-    model_config = {"env_file": ".env"}
+    model_config = ConfigDict(env_file=".env")
 
 
 settings = Settings()

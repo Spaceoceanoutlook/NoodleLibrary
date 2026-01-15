@@ -6,7 +6,7 @@ authors = [
     {name = "Spaceoceanoutlook",email = "spaceocean@outlook.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.13,<3.14"
 dependencies = [
     "sqlalchemy (>=2.0.43,<3.0.0)",
     "fastapi (>=0.118.0,<0.119.0)",
