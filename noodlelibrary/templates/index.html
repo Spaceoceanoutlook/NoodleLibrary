@@ -216,7 +216,7 @@
 
         <div class="countries">
             {% for country in countries %}
-            <a href="/countries/{{ country.name | urlencode }}/"
+            <a href="/countries/{{ country.name | urlencode }}"
                 >{{ country.name }}</a
             >
             {% endfor %}
@@ -224,7 +224,7 @@
 
         <div class="manufacturers">
             {% if noodles %} {% for manufacture in manufacturers %}
-            <a href="/manufacturers/{{ manufacture | urlencode }}/"
+            <a href="/manufacturers/{{ manufacture | urlencode }}"
                 >{{ manufacture }}</a
             >
             {% endfor %} {% endif %}
@@ -233,7 +233,7 @@
         <div class="cards">
             {% if not noodles %}
             <div class="image-container">
-                <a href="/recommendation/" class="recommend-link">
+                <a href="/recommendation" class="recommend-link">
                     <img
                         src="https://cdn.jsdelivr.net/gh/spaceoceanoutlook/static-assets@master/images/noodles/noodle.png"
                         alt="logo"
@@ -271,7 +271,7 @@
                         </div>
                     </div>
                     {% if noodle.recommendation %}
-                    <a href="/recommendation/" class="recommend-link">
+                    <a href="/recommendation" class="recommend-link">
                         <div class="recommended-badge">⭐ Рекомендовано</div></a
                     >
                     {% endif %}

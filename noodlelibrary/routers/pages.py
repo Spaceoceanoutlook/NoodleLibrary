@@ -164,9 +164,9 @@ async def read_noodles_by_country(
 
     result = await db.execute(stmt)
     noodles = result.scalars().all()
-    manufacturers = {
+    manufacturers = sorted({
         noodle.manufacture.name for noodle in noodles if noodle.manufacture
-    }
+    }, key=str.lower)
     return templates.TemplateResponse(
         "index.html",
         {
@@ -201,12 +201,27 @@ async def read_noodles_by_manufacture(
 
     result = await db.execute(stmt)
     noodles = result.scalars().all()
+
+    country = [noodle.country.name for noodle in noodles if noodle.country][0]
+
+    stmt_manufacturers = (
+        select(Manufacture.name)
+        .select_from(Noodle)
+        .join(Noodle.manufacture)
+        .join(Noodle.country)
+        .filter(Country.name == country)
+        .distinct()
+    )
+    result_mf = await db.execute(stmt_manufacturers)
+    manufacturer_names = [row[0] for row in result_mf.fetchall() if row[0]]
+    manufacturers_from_country = sorted(manufacturer_names, key=str.lower)
     return templates.TemplateResponse(
         "index.html",
         {
             "request": request,
             "noodles": noodles,
             "countries": countries,
+            "manufacturers": manufacturers_from_country,
         },
     )
 
