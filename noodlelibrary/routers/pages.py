@@ -21,7 +21,7 @@ SchemaType = TypeVar("SchemaType", bound=BaseModel)
 
 
 async def get_all_country(db: AsyncSession):
-    result = await db.execute(select(Country))
+    result = await db.execute(select(Country).order_by(Country.name))
     return result.scalars().all()
 
 

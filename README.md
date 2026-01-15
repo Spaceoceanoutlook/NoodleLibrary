@@ -27,4 +27,4 @@ alembic upgrade head
 ```bash 
 python noodlelibrary/main.py
 ```
-API будет доступен в браузере по `http://127.0.0.1:8000/docs`
+Сайт будет доступен в браузере по `http://127.0.0.1:8000/`
