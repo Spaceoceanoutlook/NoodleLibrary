@@ -255,15 +255,18 @@
                     <div>
                         <div class="card-title">{{ noodle.title }}</div>
                         <div class="info-block">
-                            <span
-                                ><span class="info-label">🌏 Страна:</span> {{
-                                noodle.country.name }}</span
+                            <span>
+                                <span class="info-label">🌏 Страна:
+                                </span> 
+                                {{ noodle.country.name }}
+                            </span
                             >
                             <span
                                 ><span class="info-label"
                                     >🏭 Изготовитель:</span
                                 >
-                                {{ noodle.manufacture.name }}</span
+                                <a href="/manufacturers/{{ noodle.manufacture.name | urlencode }}"
+                >{{ noodle.manufacture.name }}</a></span
                             >
                         </div>
                         <div class="card-description">

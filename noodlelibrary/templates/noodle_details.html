@@ -161,8 +161,8 @@
                     noodle.country.name }}</span
                 >
                 <span
-                    ><span class="info-label">🏭 Изготовитель:</span> {{
-                    noodle.manufacture.name }}</span
+                    ><span class="info-label">🏭 Изготовитель:</span> <a href="/manufacturers/{{ noodle.manufacture.name | urlencode }}"
+                >{{ noodle.manufacture.name }}</a></span
                 >
             </div>
 

@@ -164,9 +164,10 @@ async def read_noodles_by_country(
 
     result = await db.execute(stmt)
     noodles = result.scalars().all()
-    manufacturers = sorted({
-        noodle.manufacture.name for noodle in noodles if noodle.manufacture
-    }, key=str.lower)
+    manufacturers = sorted(
+        {noodle.manufacture.name for noodle in noodles if noodle.manufacture},
+        key=str.lower,
+    )
     return templates.TemplateResponse(
         "index.html",
         {
