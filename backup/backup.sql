@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict wElrH3dVq5wpmrCYrEXd1H83OsISy3Gvx7GROkqZgrChWCq5Z6LukpmdJKCDPPX
+\restrict WalOsoLWFUrauQud1kLgbTLwzQrobpLGvTlrxPIRSQMVsEQvdlSsGr0Vy4hfEqI
 
 -- Dumped from database version 16.10 (Debian 16.10-1.pgdg13+1)
 -- Dumped by pg_dump version 16.10 (Debian 16.10-1.pgdg13+1)
@@ -440,7 +440,6 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 179	Cheese Ramen	Очень остро, язык горит, есть невозможно	f	1	71	Migawon_cheese.webp
 177	Chacharoni	Приятная лапша в бобовом соусе, не остро	f	1	2	Samyang_Chacharoni.webp
 182	Shanxi Knife-Cut Noodles	Вкусная лапша и бульон, уксус добавить после варки	t	4	39	Jinmailang_Shanxi_Knife-Cut_Noodles.webp
-183	Seafood	не пробовал	f	4	72	Tangdaren_seafood.webp
 184	Lanzhou Ramen Beef Noodles	Приятная лапша и бульон, не остро, воды заливал чуть выше полстакана	f	4	73	Tongbaifu_Lanzhou_Ramen_Beef_Noodles.webp
 185	Pork and fish sauce	Залить воду к рису и немного к сухому бульону. Овощной мясной соус острый	f	4	74	Wang_Zi_Feng_Fan_pork_fish_sauce.webp
 187	Chicken	Солоноватый бульон, не остро	f	4	76	Dou_Xiao_Yu_chicken.webp
@@ -451,18 +450,19 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 192	Томаты и яйца	Неплохая лапша, не острая	f	4	17	Master_Kong_tomato_egg.webp
 195	Chicken	Невкусно	f	4	75	Tong_Wan_Fu_chicken.webp
 170	Рис с картофелем и говядиной	Самовар. Рис нормальный, соус остренький, порция большая	f	4	77	Risenoname.webp
+183	Seafood	Вкусный бульон, лапша, не остро	t	4	72	Tangdaren_seafood.webp
 103	Crab	Вкусная лапша, крабовый соус, острая. В комплекте маршмелоу и горох в панировке	f	4	79	China_unknown.jpg
 194	Chicken	Слабый привкус куриного бульона, лапша простая	f	4	8	Baixiang_chicken.jpg
 181	Pork Bones	Лапша и бульон приятные, но не лучшее, не остро	f	4	8	BAIXIANG_pork_bones.webp
 196	Рис с говядиной	Самовар. Неплохой рис с кусочками овощей и говядины, острота комфортная. В дорогу	f	4	77	Henan_Rise_Beef.webp
 105	Beef and Mushrooms	Рис хороший, суп-соус приятный, не остро, для походов подойдет	f	4	74	China_rice.jpg
 198	Dao Xian Mian Beef	не пробовал	f	4	39	Jinmailang_DaoXianMian_Beef.webp
-199	Beef	не пробовал	f	4	80	JinRiBig_Beef.webp
 200	Рамен с кимчи	Вкусный бульон, чуть острый, лапша плотная	f	12	81	Master_Wok_Ramen.webp
 201	Longxia Banmian	Острая из-за сычуаньского перца	f	4	46	QiaoDouMa_Xiao_Longxia_Banmian.webp
-202	Black Garlic	не пробовал	f	4	69	Ningbo_Garlic.webp
 203	Seafood	не пробовал	f	4	69	Ningbo_Seafood.webp
 204	Beef	не пробовал	f	16	15	Nissin_Cup_Noodles_Beef.webp
+202	Black Garlic	Бульон неплохой, лапша обычная, порция маленькая, не остро	f	4	69	Ningbo_Garlic.webp
+199	Beef	Бульон приятный, не острый, лапша простая	f	4	80	JinRiBig_Beef.webp
 \.
 
 
@@ -539,5 +539,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict wElrH3dVq5wpmrCYrEXd1H83OsISy3Gvx7GROkqZgrChWCq5Z6LukpmdJKCDPPX
+\unrestrict WalOsoLWFUrauQud1kLgbTLwzQrobpLGvTlrxPIRSQMVsEQvdlSsGr0Vy4hfEqI
 
