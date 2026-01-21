@@ -1,10 +1,10 @@
 import uvicorn
 from fastapi import FastAPI
 
-from noodlelibrary.routers import pages
+from noodlelibrary.routers import noodle_routes
 
 app = FastAPI(title="Movie Library API", version="0.1.0")
-app.include_router(pages.router, tags=["Web Pages"], include_in_schema=False)
+app.include_router(noodle_routes.router, tags=["Web Pages"], include_in_schema=False)
 
 
 if __name__ == "__main__":
