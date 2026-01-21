@@ -19,6 +19,11 @@ templates = Jinja2Templates(directory="noodlelibrary/templates")
 ModelType = TypeVar("ModelType", bound=DeclarativeBase)
 SchemaType = TypeVar("SchemaType", bound=BaseModel)
 
+async def get_count_noodles(db: AsyncSession):
+    count_query = select(func.count(Noodle.id))
+    result = await db.execute(count_query)
+    return result.scalar()
+
 
 async def get_all_country(db: AsyncSession):
     result = await db.execute(select(Country).order_by(Country.name))
@@ -61,10 +66,11 @@ async def homepage(
 ):
     countries = await get_all_country(db)
     manufacturers = await get_all_manufacture(db)
+    count_noodles = await get_count_noodles(db)
 
     return templates.TemplateResponse(
         "index.html",
-        {"request": request, "countries": countries, "manufacturers": manufacturers},
+        {"request": request, "countries": countries, "manufacturers": manufacturers, "count_noodles": count_noodles,},
     )
 
 
