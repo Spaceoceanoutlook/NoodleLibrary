@@ -3,28 +3,31 @@
 
 Клонирование репозитория
 ```bash
-git clone git@github.com:Spaceoceanoutlook/NoodleLibrary.git
+git clone https://github.com/Spaceoceanoutlook/NoodleLibrary.git
 ```
-Открыть проект в редакторе, в корне проекта создать файл `.env` и добавить данные
+Открыть проект в редакторе, в корне проекта создать файл `.env` и добавить следующие переменные:
+```
 
-Для создание виртуального окружения и установки библиотек:
+```
+В системе должен быть установлен poetry
+Для корректной работы приложения, версия python должны быть < 3.14
+Если глобальная версия python >= 3.14, то установить 3.13.0 через pyenv, после чего выполнить
+```bash 
+poetry env use ~/.pyenv/versions/3.13.0/bin/python
+```
+Активируем и добавляем полученный путь в Select Interpreter
+```bash
+poetry env activate
+```
+Установка библиотек:
 ```bash 
 poetry install
 ```
-Для активации виртуального окружения:
+Запуск базы данных 
 ```bash 
-poetry env activate
+docker compose -f docker-compose.dev.yml up -d
 ```
-Запуск Postgres
-```bash 
-docker compose -f "docker-compose.dev.yml" up -d
-```
-Применить миграции:
-```bash 
-alembic upgrade head
-```
-Запуск приложения:
+Запуск приложения
 ```bash 
 python noodlelibrary/main.py
 ```
-Сайт будет доступен в браузере по `http://127.0.0.1:8000/`

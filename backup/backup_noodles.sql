@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict WalOsoLWFUrauQud1kLgbTLwzQrobpLGvTlrxPIRSQMVsEQvdlSsGr0Vy4hfEqI
+\restrict Phqg999A1Tij20mHzkn8fWfrpmwoC1hM3SxZQnAQfvGM3XSBVsImNOoF3nnis61
 
 -- Dumped from database version 16.10 (Debian 16.10-1.pgdg13+1)
 -- Dumped by pg_dump version 16.10 (Debian 16.10-1.pgdg13+1)
@@ -456,13 +456,16 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 181	Pork Bones	Лапша и бульон приятные, но не лучшее, не остро	f	4	8	BAIXIANG_pork_bones.webp
 196	Рис с говядиной	Самовар. Неплохой рис с кусочками овощей и говядины, острота комфортная. В дорогу	f	4	77	Henan_Rise_Beef.webp
 105	Beef and Mushrooms	Рис хороший, суп-соус приятный, не остро, для походов подойдет	f	4	74	China_rice.jpg
-198	Dao Xian Mian Beef	не пробовал	f	4	39	Jinmailang_DaoXianMian_Beef.webp
 200	Рамен с кимчи	Вкусный бульон, чуть острый, лапша плотная	f	12	81	Master_Wok_Ramen.webp
 201	Longxia Banmian	Острая из-за сычуаньского перца	f	4	46	QiaoDouMa_Xiao_Longxia_Banmian.webp
-203	Seafood	не пробовал	f	4	69	Ningbo_Seafood.webp
-204	Beef	не пробовал	f	16	15	Nissin_Cup_Noodles_Beef.webp
 202	Black Garlic	Бульон неплохой, лапша обычная, порция маленькая, не остро	f	4	69	Ningbo_Garlic.webp
 199	Beef	Бульон приятный, не острый, лапша простая	f	4	80	JinRiBig_Beef.webp
+198	Dao Xian Mian Beef	Много ингредиентов, но вкус так себе, острота приемлемая	f	4	39	Jinmailang_DaoXianMian_Beef.webp
+203	Seafood	Лапша простая, бульон приятный, но его очень мало	f	4	69	Ningbo_Seafood.webp
+205	Pork	Вкусная лапша и бульон, в меру острый. Варю лапшу с овощами, потом соус и уксус	t	4	72	Tangdaren_pork.webp
+204	Beef	Лапша и бульон приятные, но не более	f	16	15	Nissin_Cup_Noodles_Beef.webp
+206	Ким Чачжан	Лапша обычная, соус бобовый, но слабенький, не остро	f	2	48	oppa_chach.webp
+207	С морепродуктами	Лапша вьетнамская, соус остренький	f	2	48	oppa_seafood.webp
 \.
 
 
@@ -484,7 +487,7 @@ SELECT pg_catalog.setval('public.manufactures_id_seq', 81, true);
 -- Name: noodles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.noodles_id_seq', 204, true);
+SELECT pg_catalog.setval('public.noodles_id_seq', 207, true);
 
 
 --
@@ -539,5 +542,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict WalOsoLWFUrauQud1kLgbTLwzQrobpLGvTlrxPIRSQMVsEQvdlSsGr0Vy4hfEqI
+\unrestrict Phqg999A1Tij20mHzkn8fWfrpmwoC1hM3SxZQnAQfvGM3XSBVsImNOoF3nnis61
 
