@@ -11,6 +11,7 @@ from noodlelibrary.schemas import CountryBase, ManufactureBase, NoodleBase
 ModelType = type[DeclarativeBase]
 SchemaType = type[BaseModel]
 
+
 async def get_or_create(
     db: AsyncSession,
     model: ModelType,
@@ -33,6 +34,7 @@ async def get_or_create(
         return obj_id
     return None
 
+
 async def create_noodle(
     db: AsyncSession,
     title: str,
@@ -45,7 +47,11 @@ async def create_noodle(
     new_country: str = None,
 ):
     manufacture_id = await get_or_create(
-        db, Manufacture, ManufactureBase, new_name=new_manufacture, obj_id=manufacture_id
+        db,
+        Manufacture,
+        ManufactureBase,
+        new_name=new_manufacture,
+        obj_id=manufacture_id,
     )
     country_id = await get_or_create(
         db, Country, CountryBase, new_name=new_country, obj_id=country_id
@@ -69,11 +75,12 @@ async def create_noodle(
     await db.refresh(new_noodle)
     return new_noodle
 
+
 async def update_noodle(
     db: AsyncSession,
     noodle_id: int,
     description: str = None,
-    recommendation: bool = None
+    recommendation: bool = None,
 ):
     noodle = await get_noodle_by_id(db, noodle_id)
     if not noodle:

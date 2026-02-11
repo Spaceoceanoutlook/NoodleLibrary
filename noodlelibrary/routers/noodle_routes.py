@@ -24,6 +24,7 @@ from settings import settings
 router = APIRouter()
 templates = Jinja2Templates(directory="noodlelibrary/templates")
 
+
 @router.get("/", response_class=HTMLResponse)
 async def homepage(request: Request, db: AsyncSession = Depends(get_db)):
     countries = await get_all_countries(db)
@@ -32,8 +33,14 @@ async def homepage(request: Request, db: AsyncSession = Depends(get_db)):
 
     return templates.TemplateResponse(
         "index.html",
-        {"request": request, "countries": countries, "manufacturers": manufacturers, "count_noodles": count_noodles}
+        {
+            "request": request,
+            "countries": countries,
+            "manufacturers": manufacturers,
+            "count_noodles": count_noodles,
+        },
     )
+
 
 @router.get("/create", response_class=HTMLResponse)
 async def create_noodle_form(request: Request, db: AsyncSession = Depends(get_db)):
@@ -42,8 +49,9 @@ async def create_noodle_form(request: Request, db: AsyncSession = Depends(get_db
 
     return templates.TemplateResponse(
         "create.html",
-        {"request": request, "countries": countries, "manufacturers": manufacturers}
+        {"request": request, "countries": countries, "manufacturers": manufacturers},
     )
+
 
 @router.post("/create")
 async def create_noodle_post(
@@ -65,11 +73,19 @@ async def create_noodle_post(
     is_recommended = recommendation == "true"
 
     await create_noodle(
-        db, title, description, image, manufacture_id, country_id, is_recommended,
-        new_manufacture, new_country
+        db,
+        title,
+        description,
+        image,
+        manufacture_id,
+        country_id,
+        is_recommended,
+        new_manufacture,
+        new_country,
     )
 
     return RedirectResponse(url="/", status_code=303)
+
 
 @router.get("/countries/{country}", response_class=HTMLResponse)
 async def read_noodles_by_country(
@@ -79,7 +95,9 @@ async def read_noodles_by_country(
 ):
     countries = await get_all_countries(db)
     noodles = await get_noodles_by_country(db, country)
-    manufacturers = sorted({n.manufacture.name for n in noodles if n.manufacture}, key=str.lower)
+    manufacturers = sorted(
+        {n.manufacture.name for n in noodles if n.manufacture}, key=str.lower
+    )
 
     return templates.TemplateResponse(
         "index.html",
@@ -90,6 +108,7 @@ async def read_noodles_by_country(
             "manufacturers": manufacturers,
         },
     )
+
 
 @router.get("/manufacturers/{manufacture}", response_class=HTMLResponse)
 async def read_noodles_by_manufacture(
@@ -124,6 +143,7 @@ async def read_noodles_by_manufacture(
         },
     )
 
+
 @router.get("/noodle/{id}", response_class=HTMLResponse)
 async def read_noodle(
     id: int,
@@ -146,6 +166,7 @@ async def read_noodle(
         },
     )
 
+
 @router.post("/noodle/{id}/edit")
 async def edit_noodle(
     id: int,
@@ -157,11 +178,13 @@ async def edit_noodle(
         raise HTTPException(status_code=403, detail="Неверный пароль")
 
     await update_noodle(
-        db, id,
+        db,
+        id,
         description=payload.get("description"),
-        recommendation=payload.get("recommendation")
+        recommendation=payload.get("recommendation"),
     )
     return {"status": "ok"}
+
 
 @router.get("/recommendation", response_class=HTMLResponse)
 async def read_noodles_by_recommendation(
