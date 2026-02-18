@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict Phqg999A1Tij20mHzkn8fWfrpmwoC1hM3SxZQnAQfvGM3XSBVsImNOoF3nnis61
+\restrict EOxabKHlH66vXkDqMQqerE5MIidXForgo4UPyNBDjteQE7MgGViT17ToZPOK0WW
 
 -- Dumped from database version 16.10 (Debian 16.10-1.pgdg13+1)
 -- Dumped by pg_dump version 16.10 (Debian 16.10-1.pgdg13+1)
@@ -364,7 +364,7 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 92	Fideos Con Carne	Лапша типа роллтона, не остро, бульон простой	f	11	38	ReevaFideos.jpg
 93	Чан Рамен Острый	Лапша хорошая, бульон Остренький, как корейская	f	11	24	ChanRamenHotBeef.webp
 94	Удон японская со вкусом говядины	Вкусный бульон, не острый, лапша как деревенская яичная.	t	4	39	Jinmailang_Beef.jpg
-193	Pork bone	Вкусный, в меру острый	t	4	72	Tangdaren_pork_bone.png
+193	Pork bone	Вкусно, не остро. Варю 3 минуты, в конце соус и выключаю.	t	4	72	Tangdaren_pork_bone.png
 95	Куриный	Приятный вкусненький бульон, лапша не самая лучшая, но пойдёт, есть можно	f	12	40	AlkoniChiken.jpg
 96	Pho bo	Есть можно, но другие фо бо, в бичпакетах намного вкуснее	f	2	12	GauDo_PhoB.jpg
 97	Говяжий	Простой бульон и лапша, есть можно когда больше нечего	f	11	24	Doshirak_Beef.jpg
@@ -542,5 +542,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict Phqg999A1Tij20mHzkn8fWfrpmwoC1hM3SxZQnAQfvGM3XSBVsImNOoF3nnis61
+\unrestrict EOxabKHlH66vXkDqMQqerE5MIidXForgo4UPyNBDjteQE7MgGViT17ToZPOK0WW
 
