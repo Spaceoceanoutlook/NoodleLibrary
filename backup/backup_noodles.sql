@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict EOxabKHlH66vXkDqMQqerE5MIidXForgo4UPyNBDjteQE7MgGViT17ToZPOK0WW
+\restrict dB0FNryEKeh7M5g0uv4cwJKRLHtE7b5O2noor4AjB52knniTss5gC6t87dMTg7k
 
 -- Dumped from database version 16.10 (Debian 16.10-1.pgdg13+1)
 -- Dumped by pg_dump version 16.10 (Debian 16.10-1.pgdg13+1)
@@ -271,6 +271,8 @@ COPY public.manufactures (id, name) FROM stdin;
 79	Xiang Yue Yu
 80	JinRiBig
 81	Master Wok
+82	Yummy! Yummy!
+83	Биг Ланч
 \.
 
 
@@ -362,8 +364,8 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 89	Чачжан Мён	Но соус из Китая. Приятная лапша. Сладковатый соус с кусочками чего-то, грибы или соевое мясо. Не остро	f	11	24	Doshirak_ChachGan.webp
 91	Con Caracter	Нормальная лапша, типа роллтона, бульон приятный, не остро	f	11	38	ReevaConCaracter.jpg
 92	Fideos Con Carne	Лапша типа роллтона, не остро, бульон простой	f	11	38	ReevaFideos.jpg
-93	Чан Рамен Острый	Лапша хорошая, бульон Остренький, как корейская	f	11	24	ChanRamenHotBeef.webp
 94	Удон японская со вкусом говядины	Вкусный бульон, не острый, лапша как деревенская яичная.	t	4	39	Jinmailang_Beef.jpg
+93	Чан Рамен Острый	Лапша хорошая, бульон Остренький, как корейская	t	11	24	ChanRamenHotBeef.webp
 193	Pork bone	Вкусно, не остро. Варю 3 минуты, в конце соус и выключаю.	t	4	72	Tangdaren_pork_bone.png
 95	Куриный	Приятный вкусненький бульон, лапша не самая лучшая, но пойдёт, есть можно	f	12	40	AlkoniChiken.jpg
 96	Pho bo	Есть можно, но другие фо бо, в бичпакетах намного вкуснее	f	2	12	GauDo_PhoB.jpg
@@ -466,6 +468,8 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 204	Beef	Лапша и бульон приятные, но не более	f	16	15	Nissin_Cup_Noodles_Beef.webp
 206	Ким Чачжан	Лапша обычная, соус бобовый, но слабенький, не остро	f	2	48	oppa_chach.webp
 207	С морепродуктами	Лапша вьетнамская, соус остренький	f	2	48	oppa_seafood.webp
+208	Kim ramen со вкусом курицы⁠	Простой бульон и лапша, не остро	f	2	82	Kim_ramen⁠.webp
+209	Фрикасе с цыпленком	Приятный бульон и лапша	f	11	83	biglanch_chicken.webp
 \.
 
 
@@ -480,14 +484,14 @@ SELECT pg_catalog.setval('public.countries_id_seq', 16, true);
 -- Name: manufactures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.manufactures_id_seq', 81, true);
+SELECT pg_catalog.setval('public.manufactures_id_seq', 83, true);
 
 
 --
 -- Name: noodles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.noodles_id_seq', 207, true);
+SELECT pg_catalog.setval('public.noodles_id_seq', 209, true);
 
 
 --
@@ -542,5 +546,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict EOxabKHlH66vXkDqMQqerE5MIidXForgo4UPyNBDjteQE7MgGViT17ToZPOK0WW
+\unrestrict dB0FNryEKeh7M5g0uv4cwJKRLHtE7b5O2noor4AjB52knniTss5gC6t87dMTg7k
 
