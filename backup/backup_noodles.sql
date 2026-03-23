@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict dB0FNryEKeh7M5g0uv4cwJKRLHtE7b5O2noor4AjB52knniTss5gC6t87dMTg7k
+\restrict laZ9OYduoFsUzIaJxg7aUrrwiUXRF59lJPTAXHn0DWKLKJMoHBZjz5Nq0LU6G1R
 
 -- Dumped from database version 16.10 (Debian 16.10-1.pgdg13+1)
 -- Dumped by pg_dump version 16.10 (Debian 16.10-1.pgdg13+1)
@@ -470,6 +470,8 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 207	С морепродуктами	Лапша вьетнамская, соус остренький	f	2	48	oppa_seafood.webp
 208	Kim ramen со вкусом курицы⁠	Простой бульон и лапша, не остро	f	2	82	Kim_ramen⁠.webp
 209	Фрикасе с цыпленком	Приятный бульон и лапша	f	11	83	biglanch_chicken.webp
+210	Чан Рамен Cheese	Неплохая лапша с сырным соусом, не острая, можно использовать как основу для пасты	f	11	24	Chan_ramen_cheese.webp
+211	Рис с соусом из говядины	Рис вкусный, но довольно остро	f	4	77	HenanLeiqiaFood_Rise_beef.webp
 \.
 
 
@@ -484,14 +486,14 @@ SELECT pg_catalog.setval('public.countries_id_seq', 16, true);
 -- Name: manufactures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.manufactures_id_seq', 83, true);
+SELECT pg_catalog.setval('public.manufactures_id_seq', 84, true);
 
 
 --
 -- Name: noodles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.noodles_id_seq', 209, true);
+SELECT pg_catalog.setval('public.noodles_id_seq', 211, true);
 
 
 --
@@ -546,5 +548,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict dB0FNryEKeh7M5g0uv4cwJKRLHtE7b5O2noor4AjB52knniTss5gC6t87dMTg7k
+\unrestrict laZ9OYduoFsUzIaJxg7aUrrwiUXRF59lJPTAXHn0DWKLKJMoHBZjz5Nq0LU6G1R
 
