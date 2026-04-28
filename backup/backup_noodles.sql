@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict laZ9OYduoFsUzIaJxg7aUrrwiUXRF59lJPTAXHn0DWKLKJMoHBZjz5Nq0LU6G1R
+\restrict D4KonPUU8c4I7989lyrhcPgjPRkmpkJ3mJKgcAosFac6LfxLjlb7YiN0L4uKa9G
 
 -- Dumped from database version 16.10 (Debian 16.10-1.pgdg13+1)
 -- Dumped by pg_dump version 16.10 (Debian 16.10-1.pgdg13+1)
@@ -273,6 +273,7 @@ COPY public.manufactures (id, name) FROM stdin;
 81	Master Wok
 82	Yummy! Yummy!
 83	Биг Ланч
+85	Meshi
 \.
 
 
@@ -472,6 +473,15 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 209	Фрикасе с цыпленком	Приятный бульон и лапша	f	11	83	biglanch_chicken.webp
 210	Чан Рамен Cheese	Неплохая лапша с сырным соусом, не острая, можно использовать как основу для пасты	f	11	24	Chan_ramen_cheese.webp
 211	Рис с соусом из говядины	Рис вкусный, но довольно остро	f	4	77	HenanLeiqiaFood_Rise_beef.webp
+212	Рис с курицей и грибами	Рис по специям простой, не острый	f	4	69	Ningbo_rice_chicken.webp
+213	Чан Рамен со вкусом курицы	Сама лапша хорошая, но бульон нет, как куриный кубик	f	11	24	Chan_ramen_chicken.webp
+214	С мясным соусом	Невкусная лапша, пересоленный бульон	f	11	24	Doshirak_meet.webp
+215	Tangle Creamy Bulgogi	не пробовал еще	f	1	2	samyang_tangle_creamy_bulgogi.webp
+216	С карри	Вкусный и бульон с карри и лапша, возможно есть лёгкая остринка	t	4	39	Jinmailang_beef_carry.webp
+217	Pho Ga	Лапша обычная рисовая, бульон сладковатый, ненасыщенный	f	2	85	Moshi_Halo_Pho_Ga.webp
+218	Pho Bo	не пробовал еще	f	2	85	Meshi_Pho_Bo.webp
+219	Лапша Чеддар	не пробовал еще	f	1	5	Ottogi_cheddar.webp
+220	Сырный рамен	не пробовал еще	f	1	5	Ottogi_cheese.webp
 \.
 
 
@@ -486,14 +496,14 @@ SELECT pg_catalog.setval('public.countries_id_seq', 16, true);
 -- Name: manufactures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.manufactures_id_seq', 84, true);
+SELECT pg_catalog.setval('public.manufactures_id_seq', 85, true);
 
 
 --
 -- Name: noodles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.noodles_id_seq', 211, true);
+SELECT pg_catalog.setval('public.noodles_id_seq', 220, true);
 
 
 --
@@ -548,5 +558,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict laZ9OYduoFsUzIaJxg7aUrrwiUXRF59lJPTAXHn0DWKLKJMoHBZjz5Nq0LU6G1R
+\unrestrict D4KonPUU8c4I7989lyrhcPgjPRkmpkJ3mJKgcAosFac6LfxLjlb7YiN0L4uKa9G
 
