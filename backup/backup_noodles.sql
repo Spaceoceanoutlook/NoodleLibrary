@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict D4KonPUU8c4I7989lyrhcPgjPRkmpkJ3mJKgcAosFac6LfxLjlb7YiN0L4uKa9G
+\restrict Pvz41x3JEQmMxBZabBv1FrPu5FHYFdOhTTbtvAzS8Eucf1jK9cNDhbg83V7kHeb
 
 -- Dumped from database version 16.10 (Debian 16.10-1.pgdg13+1)
 -- Dumped by pg_dump version 16.10 (Debian 16.10-1.pgdg13+1)
@@ -367,7 +367,7 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 92	Fideos Con Carne	Лапша типа роллтона, не остро, бульон простой	f	11	38	ReevaFideos.jpg
 94	Удон японская со вкусом говядины	Вкусный бульон, не острый, лапша как деревенская яичная.	t	4	39	Jinmailang_Beef.jpg
 93	Чан Рамен Острый	Лапша хорошая, бульон Остренький, как корейская	t	11	24	ChanRamenHotBeef.webp
-193	Pork bone	Вкусно, не остро. Варю 3 минуты, в конце соус и выключаю.	t	4	72	Tangdaren_pork_bone.png
+193	Pork bone	Вкусно, легкая остринка. Варю 3 минуты, в конце соус и выключаю.	t	4	72	Tangdaren_pork_bone.png
 95	Куриный	Приятный вкусненький бульон, лапша не самая лучшая, но пойдёт, есть можно	f	12	40	AlkoniChiken.jpg
 96	Pho bo	Есть можно, но другие фо бо, в бичпакетах намного вкуснее	f	2	12	GauDo_PhoB.jpg
 97	Говяжий	Простой бульон и лапша, есть можно когда больше нечего	f	11	24	Doshirak_Beef.jpg
@@ -476,12 +476,13 @@ COPY public.noodles (id, title, description, recommendation, country_id, manufac
 212	Рис с курицей и грибами	Рис по специям простой, не острый	f	4	69	Ningbo_rice_chicken.webp
 213	Чан Рамен со вкусом курицы	Сама лапша хорошая, но бульон нет, как куриный кубик	f	11	24	Chan_ramen_chicken.webp
 214	С мясным соусом	Невкусная лапша, пересоленный бульон	f	11	24	Doshirak_meet.webp
-215	Tangle Creamy Bulgogi	не пробовал еще	f	1	2	samyang_tangle_creamy_bulgogi.webp
 216	С карри	Вкусный и бульон с карри и лапша, возможно есть лёгкая остринка	t	4	39	Jinmailang_beef_carry.webp
 217	Pho Ga	Лапша обычная рисовая, бульон сладковатый, ненасыщенный	f	2	85	Moshi_Halo_Pho_Ga.webp
-218	Pho Bo	не пробовал еще	f	2	85	Meshi_Pho_Bo.webp
-219	Лапша Чеддар	не пробовал еще	f	1	5	Ottogi_cheddar.webp
-220	Сырный рамен	не пробовал еще	f	1	5	Ottogi_cheese.webp
+218	Pho Bo	Приятный бульон и лапша, поменьше воды, чтобы бульон насыщенный был	f	2	85	Meshi_Pho_Bo.webp
+215	Tangle Creamy Bulgogi	Вкусная паста, сладковатая с остринкой. Варить лапшу 5.30, затем добавить по порядку все пакетики	t	1	2	samyang_tangle_creamy_bulgogi.webp
+219	Лапша Чеддар	Неплохой сырный бульон, лапша стандартная корейская, острота легкая комфортная	f	1	5	Ottogi_cheddar.webp
+220	Сырный рамен	Приятная лапша в сыром соусе, не остро, мало	f	1	5	Ottogi_cheese.webp
+221	Buldak Carbonara	Вкусный соус, но остро на грани, половину не доел	f	1	2	Samyang_Carbanara.webp
 \.
 
 
@@ -503,7 +504,7 @@ SELECT pg_catalog.setval('public.manufactures_id_seq', 85, true);
 -- Name: noodles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: valerii
 --
 
-SELECT pg_catalog.setval('public.noodles_id_seq', 220, true);
+SELECT pg_catalog.setval('public.noodles_id_seq', 221, true);
 
 
 --
@@ -558,5 +559,5 @@ ALTER TABLE ONLY public.noodles
 -- PostgreSQL database dump complete
 --
 
-\unrestrict D4KonPUU8c4I7989lyrhcPgjPRkmpkJ3mJKgcAosFac6LfxLjlb7YiN0L4uKa9G
+\unrestrict Pvz41x3JEQmMxBZabBv1FrPu5FHYFdOhTTbtvAzS8Eucf1jK9cNDhbg83V7kHeb
 
